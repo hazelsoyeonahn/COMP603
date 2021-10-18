@@ -19,6 +19,8 @@ public class Main {
        Model model = new Model();
        Controller control = new Controller(view, model);*/
        
+       StudentInfo info = new StudentInfo();
+       info.setVisible(true);
     }
     
 }
