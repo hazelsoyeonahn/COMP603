@@ -37,6 +37,14 @@ public class Database {
     }
     
     private boolean checkTableExisting(String tablename){
-        
+        boolean flag = false;
+        try{
+            System.out.println("check existing tables....");
+            String[] types = {"TABLE"};
+            DatabaseMetaData dbmd = conn.getMetaData();
+            ResultSet result = dbmd.getTables(null, null, null, null);
+        }catch(SQLException ex){
+        }
+        return flag;
     }
 }
