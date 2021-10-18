@@ -35,6 +35,9 @@ public class StudentInfo extends JFrame{
         idPanel.add(id);
         idPanel.add(idInput);
         idPanel.add(idSearchButton);
+        this.add(idPanel);
+        
+       // idSearchButton.addActionListener(new)
     }
     
       public void setupStudentDB(){
