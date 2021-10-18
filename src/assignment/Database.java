@@ -43,6 +43,9 @@ public class Database {
             String[] types = {"TABLE"};
             DatabaseMetaData dbmd = conn.getMetaData();
             ResultSet result = dbmd.getTables(null, null, null, null);
+            while(result.next()){
+                
+            }
         }catch(SQLException ex){
         }
         return flag;
