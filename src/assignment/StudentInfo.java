@@ -9,6 +9,8 @@ import java.sql.Statement;
 import javax.swing.*;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  *
@@ -27,6 +29,9 @@ public class StudentInfo extends JFrame{
     Connection conn = null;
     
     public StudentInfo(){
+        this.setupStudentDB();
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setSize(600,200);
         
     }
     
@@ -45,6 +50,26 @@ public class StudentInfo extends JFrame{
         }
     }
       
+       private boolean checkTableExisting(String newTablename){
+        boolean flag = false;
+        try{
+            System.out.println("check existing tables....");
+            String[] types = {"TABLE"};
+            DatabaseMetaData dbmd = conn.getMetaData();
+            ResultSet result = dbmd.getTables(null, null, null, null);
+            while(result.next()){
+                String tableName = result.getString("TABLE_NAME");
+                if(tableName.compareToIgnoreCase(newTablename)==0){
+                    System.out.println(tableName+" is there");
+                    flag = true;
+                }
+            }
+            if(result!= null)
+                result.close();
+        }catch(SQLException ex){
+        }
+        return flag;
+    }
       
     
 }
