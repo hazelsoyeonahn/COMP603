@@ -22,7 +22,7 @@ public class StudentInfo extends JFrame{
     private JLabel id = new JLabel("Student ID: ");
     private JTextField idInput = new JTextField(7);
     private JLabel idNotFound = new JLabel("Student not found, please type correct student ID");
-    private JButton searchButton = new JButton("Search");
+    private JButton idSearchButton = new JButton("Search");
     String url = "jdbc:derby:StudentDB;create=true"; //url for StudentDB
     String username = "pdc";
     String password = "pdc";
@@ -32,7 +32,9 @@ public class StudentInfo extends JFrame{
         this.setupStudentDB();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(600,200);
-        
+        idPanel.add(id);
+        idPanel.add(idInput);
+        idPanel.add(idSearchButton);
     }
     
       public void setupStudentDB(){
