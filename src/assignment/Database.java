@@ -4,7 +4,9 @@
  * and open the template in the editor.
  */
 package assignment;
-
+import java.sql.Statement;
+import java.util.logging.Logger;
+import java.util.logging.Level;
 /**
  *
  * @author fvx3255
