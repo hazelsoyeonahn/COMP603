@@ -25,7 +25,10 @@ public class Controller implements ActionListener{
     public void actionPerformed(ActionEvent e){
         String command = e.getActionCommand();
         switch(command){
-            
+            case "Search":
+                //id search button
+                String id = this.view.idInput.getText(); //get searchable id
+                this.model.checkID(id);
         }
     }
 }
