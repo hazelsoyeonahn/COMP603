@@ -22,6 +22,8 @@ import java.util.Observable;
 public class View extends JFrame implements Observer{
     private JPanel idPanel = new JPanel();
     private JLabel id = new JLabel("Student ID: ");
+    private JLabel welcome = new JLabel("Weloome!");
+    private JLabel noid = new JLabel("Can't find student ID?");
     private JTextField idInput = new JTextField(7);
     private JLabel idNotFound = new JLabel("Student not found, please type correct student ID");
     private JButton idSearchButton = new JButton("Search");
@@ -29,13 +31,15 @@ public class View extends JFrame implements Observer{
     private JButton listButton = new JButton("Show list of student");
     
     public View(){
+        this.setTitle("Student Information");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(600,250);
         this.setLocationRelativeTo(null);
         this.idPanel.setLayout(null);
-        this.id.setBounds(130,40,100,50);
-        this.idInput.setBounds(200,50,100,30);
-        this.idSearchButton.setBounds(300, 50, 100, 40);
+        this.id.setBounds(150,50,100,50);
+        this.idInput.setBounds(235,60,100,30);
+        this.idSearchButton.setBounds(360, 60, 80, 30);
+        this.idSearchButton.setBackground(Color.LIGHT_GRAY);
         this.regiButton.setFont(new Font("Arial", Font.BOLD, 11));
         this.listButton.setFont(new Font("Arial", Font.BOLD, 11));
         this.regiButton.setBackground(Color.LIGHT_GRAY);
