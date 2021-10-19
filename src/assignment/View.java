@@ -83,8 +83,14 @@ public class View extends JFrame implements Observer{
         stBirth.setForeground(Color.white);
         stGender.setForeground(Color.white);
         stMajor.setForeground(Color.white);
+        stId.setBounds(250,10,100,50);
+        stName.setBounds(250,50,100,50);
+        stBirth.setBounds(250,100,200,500);
+        stGender.setBounds(250,150,100,50);
+        stMajor.setBounds(250,200,100,50);
         
         this.getContentPane().removeAll();
+        infoPanel.setLayout(null);
         infoPanel.setBackground(Color.black);
         infoPanel.add(stId);
         infoPanel.add(stName);
