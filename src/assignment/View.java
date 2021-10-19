@@ -73,6 +73,7 @@ public class View extends JFrame implements Observer{
         JPanel infoPanel = new JPanel();
         this.getContentPane().removeAll();
         infoPanel.setVisible(true);
+        this.add(infoPanel);
         this.revalidate();
         this.repaint();
     }
