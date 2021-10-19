@@ -18,11 +18,14 @@ public class Controller implements ActionListener{
     public Controller(View view, Model model){
         this.model = model;
         this.view = view;
-    //    this.view.addActionListener(this);
+        this.view.addActionListener(this);
     }
     
     @Override
     public void actionPerformed(ActionEvent e){
-        
+        String command = e.getActionCommand();
+        switch(command){
+            
+        }
     }
 }
