@@ -5,6 +5,8 @@
  */
 package assignment;
 
+import java.awt.Color;
+import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -28,8 +30,18 @@ public class View extends JFrame implements Observer{
     
     public View(){
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(600,600);
+        this.setSize(600,250);
         this.setLocationRelativeTo(null);
+        this.idPanel.setLayout(null);
+        this.id.setBounds(130,40,100,50);
+        this.idInput.setBounds(200,50,100,30);
+        this.idSearchButton.setBounds(300, 50, 100, 40);
+        this.regiButton.setFont(new Font("Arial", Font.BOLD, 11));
+        this.listButton.setFont(new Font("Arial", Font.BOLD, 11));
+        this.regiButton.setBackground(Color.LIGHT_GRAY);
+        this.listButton.setBackground(Color.LIGHT_GRAY);
+        this.regiButton.setBounds(100,150,170,30);
+        this.listButton.setBounds(300,150,170,30);
         this.idPanel.add(id);
         this.idPanel.add(idInput);
         this.idPanel.add(idSearchButton);
