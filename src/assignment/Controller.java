@@ -27,7 +27,8 @@ public class Controller implements ActionListener{
         switch(command){
             case "Search":
                 //id search button
-                String id = this.view.idInput.getText(); //get searchable id
+                int id = Integer.parseInt(this.view.idInput.getText()); //get searchable id
+                
                 this.model.checkID(id);
                 break;
             case "Register new student":
