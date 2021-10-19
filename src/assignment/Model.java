@@ -26,6 +26,9 @@ public class Model extends Observable{
         this.id = id;
         this.student = this.db.checkID(id);
         
+        if(student.idFlag){
+            this.setChanged();
+            this.notifyObservers(this.student);
+        }
     }
-    
 }
