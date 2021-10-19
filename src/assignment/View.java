@@ -25,7 +25,7 @@ public class View extends JFrame implements Observer{
     private JLabel welcomeLabel = new JLabel("Welcome ! Input student ID to see the information");
     private JLabel noidLabel = new JLabel("Can't find student ID?");
     private JLabel autLabel = new JLabel("AUT");
-    private JTextField idInput = new JTextField(7);
+    public JTextField idInput = new JTextField(7);
     private JLabel idNotFound = new JLabel("Student not found, please type correct student ID");
     private JButton idSearchButton = new JButton("Search");
     private JButton regiButton = new JButton("Register new student");
