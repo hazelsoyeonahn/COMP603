@@ -29,6 +29,14 @@ public class Controller implements ActionListener{
                 //id search button
                 String id = this.view.idInput.getText(); //get searchable id
                 this.model.checkID(id);
+                break;
+            case "Register new student":
+                //register new student button
+                break;
+            case "Show list of student":
+                //show list of student button
+            default:
+                break;
         }
     }
 }
