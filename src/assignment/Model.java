@@ -14,7 +14,13 @@ import java.util.Random;
  */
 public class Model extends Observable{
     public Student student;
+    public Database db;
     public String id;
+    
+    public Model(){
+        this.db = new Database();
+        this.db.setupStudentDB();
+    }
     
     
 }
