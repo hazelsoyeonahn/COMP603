@@ -19,13 +19,12 @@ import java.util.Observable;
  */
 public class View extends JFrame implements Observer{
     private JPanel idPanel = new JPanel();
-    private JPanel infoPanel = new JPanel();
-    private JPanel regiPanel = new JPanel();
-    private JPanel listPanel = new JPanel();
     private JLabel id = new JLabel("Student ID: ");
     private JTextField idInput = new JTextField(7);
     private JLabel idNotFound = new JLabel("Student not found, please type correct student ID");
     private JButton idSearchButton = new JButton("Search");
+    private JButton regiButton = new JButton("Register new student");
+    private JButton listButton = new JButton("Show list of student");
     
     public View(){
         this.setDefaultCloseOperation();
@@ -34,9 +33,9 @@ public class View extends JFrame implements Observer{
         this.idPanel.add(id);
         this.idPanel.add(idInput);
         this.idPanel.add(idSearchButton);
-        this.add(infoPanel);
-        this.add(regiPanel);
-        this.add(listPanel);
+        this.idPanel.add(regiButton);
+        this.idPanel.add(listButton);
+        this.add(idPanel);
         this.setVisible(true);
     }
     
@@ -51,4 +50,14 @@ public class View extends JFrame implements Observer{
         
     }
     
+    public void addActionListener(ActionListener listener){
+        this.idSearchButton.addActionListener(listener);
+        this.regiButton.addActionListener(listener);
+        this.listButton.addActionListener(listener);
+    }
+    
+    @Override
+    public void update(Observable o, Object arg){
+        Student student = (Student) arg; //get student object
+    }
 }
