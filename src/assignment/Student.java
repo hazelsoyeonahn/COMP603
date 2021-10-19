@@ -10,5 +10,10 @@ package assignment;
  * @author fvx3255
  */
 public class Student {
-    
+    public boolean idFlag = false;
+    public int id;
+    public String name;
+    public String gender;
+    public String birthday;
+    public String major;
 }
