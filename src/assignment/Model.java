@@ -15,14 +15,14 @@ import java.util.Random;
 public class Model extends Observable{
     public Student student;
     public Database db;
-    public String id;
+    public int id;
     
     public Model(){
         this.db = new Database();
         this.db.setupStudentDB();
     }
     
-    public void checkID(String id){
+    public void checkID(int id){
         this.id = id;
         this.student = this.db.checkID(id);
         
