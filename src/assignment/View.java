@@ -69,9 +69,28 @@ public class View extends JFrame implements Observer{
         this.setVisible(true);
     }
     
-    public void startInfo(){
+    public void startInfo(Student stu){
+        //design new panel and labels
         JPanel infoPanel = new JPanel();
+        JLabel stId = new JLabel("ID: "+String.valueOf(stu.id));
+        JLabel stName = new JLabel("Name: "+stu.name);
+        JLabel stBirth = new JLabel("Birthday: "+stu.birthday);
+        JLabel stGender = new JLabel("Gender: "+stu.gender);
+        JLabel stMajor = new JLabel("Major: "+stu.major);
+        
+        stId.setForeground(Color.white);
+        stName.setForeground(Color.white);
+        stBirth.setForeground(Color.white);
+        stGender.setForeground(Color.white);
+        stMajor.setForeground(Color.white);
+        
         this.getContentPane().removeAll();
+        infoPanel.setBackground(Color.black);
+        infoPanel.add(stId);
+        infoPanel.add(stName);
+        infoPanel.add(stBirth);
+        infoPanel.add(stGender);
+        infoPanel.add(stMajor);
         infoPanel.setVisible(true);
         this.add(infoPanel);
         this.revalidate();
@@ -102,7 +121,7 @@ public class View extends JFrame implements Observer{
         }
         //if student is found start display their information
         else{
-            this.startInfo();
+            this.startInfo(student);
         }
     }
 }
