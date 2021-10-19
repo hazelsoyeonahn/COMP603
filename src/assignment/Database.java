@@ -36,15 +36,22 @@ public class Database {
         Student student = new Student();
         try{
             Statement statement = conn.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT ID FROM STUDENT "
+            ResultSet rs = statement.executeQuery("SELECT NAME, ID, GENDER, BIRTHDAY, MAJOR"
+                    + " FROM STUDENT "
             + "WHERE ID = '" +id+"'");
             //if id is found
             if(rs.next()){
                 student.idFlag = true;
+                student.id = rs.getInt("ID");
+                student.name = rs.getString("NAME");
+                student.gender = rs.getString("GENDER");
+                student.birthday = rs.getString("BIRTHDAY");
+                student.major = rs.getString("MAJOR");
             }
             //if id is not found
             else{
                 System.out.println("No such student");
+                student = null; //return null value
             }
         }catch(SQLException ex){
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
