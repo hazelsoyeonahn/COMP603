@@ -47,6 +47,7 @@ public class Database {
                 student.gender = rs.getString("GENDER");
                 student.birthday = rs.getString("BIRTHDAY");
                 student.major = rs.getString("MAJOR");
+                System.out.println("FOund");
             }
             //if id is not found
             else{
