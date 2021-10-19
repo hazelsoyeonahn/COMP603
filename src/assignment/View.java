@@ -30,6 +30,7 @@ public class View extends JFrame implements Observer{
     private JButton idSearchButton = new JButton("Search");
     private JButton regiButton = new JButton("Register new student");
     private JButton listButton = new JButton("Show list of student");
+    private boolean flag = false; //flag for finding student id
     
     public View(){
         this.setTitle("AUT Student Information");
