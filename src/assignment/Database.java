@@ -40,17 +40,15 @@ public class Database {
             + "WHERE ID = '" +id+"'");
             //if id is found
             if(rs.next()){
-                
+                student.idFlag = true;
             }
             //if id is not found
             else{
-                
+                System.out.println("No such student");
             }
         }catch(SQLException ex){
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
         return student;
     }
  
