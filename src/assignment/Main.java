@@ -15,12 +15,9 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
- /*      View view = new View();
+       View view = new View();
        Model model = new Model();
-       Controller control = new Controller(view, model);*/
-       
-       StudentInfo info = new StudentInfo();
-       info.setVisible(true);
+       Controller control = new Controller(view, model);
     }
     
 }
