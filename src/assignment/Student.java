@@ -10,10 +10,19 @@ package assignment;
  * @author fvx3255
  */
 public class Student {
-    public boolean idFlag = false;
+    public boolean idFlag;
     public int id;
     public String name;
     public String gender;
     public String birthday;
     public String major;
+    
+    public Student(){
+        this.idFlag = false;
+        this.id = 0;
+        this.name = "";
+        this.gender = "";
+        this.birthday = "";
+        this.major = "";
+    }
 }
