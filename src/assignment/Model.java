@@ -23,6 +23,8 @@ public class Model extends Observable{
     }
     
     public void checkID(String id){
+        this.id = id;
+        this.student = this.db.checkID(id);
         
     }
     
