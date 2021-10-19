@@ -22,5 +22,8 @@ public class Model extends Observable{
         this.db.setupStudentDB();
     }
     
+    public void checkID(String id){
+        
+    }
     
 }
