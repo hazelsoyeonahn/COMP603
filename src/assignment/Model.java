@@ -5,10 +5,16 @@
  */
 package assignment;
 
+import java.util.Observable;
+import java.util.Random;
+
 /**
  *
  * @author fvx3255
  */
-public class Model {
+public class Model extends Observable{
+    public Student student;
+    public String id;
+    
     
 }
