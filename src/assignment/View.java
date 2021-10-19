@@ -27,7 +27,7 @@ public class View extends JFrame implements Observer{
     private JButton listButton = new JButton("Show list of student");
     
     public View(){
-        this.setDefaultCloseOperation();
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(600,600);
         this.setLocationRelativeTo(null);
         this.idPanel.add(id);
