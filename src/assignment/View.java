@@ -30,7 +30,6 @@ public class View extends JFrame implements Observer{
     private JButton idSearchButton = new JButton("Search");
     private JButton regiButton = new JButton("Register new student");
     private JButton listButton = new JButton("Show list of student");
-    private boolean flag = false; //flag for finding student id
     
     public View(){
         this.setTitle("AUT Student Information");
@@ -71,7 +70,11 @@ public class View extends JFrame implements Observer{
     }
     
     public void startInfo(){
-        
+        JPanel infoPanel = new JPanel();
+        this.getContentPane().removeAll();
+        infoPanel.setVisible(true);
+        this.revalidate();
+        this.repaint();
     }
     
     public void registerInfo(){
@@ -90,5 +93,15 @@ public class View extends JFrame implements Observer{
     @Override
     public void update(Observable o, Object arg){
         Student student = (Student) arg; //get student object
+        if(!student.idFlag){ //if login fails, empty idInput
+            this.idInput.setText("");
+            this.idNotFound.setBounds(300,300,200,50);
+            this.idNotFound.setForeground(Color.red);
+            this.idPanel.add(idNotFound);
+        }
+        //if student is found start display their information
+        else{
+            this.startInfo();
+        }
     }
 }
