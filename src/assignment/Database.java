@@ -17,7 +17,7 @@ import java.sql.DatabaseMetaData;
  * @author fvx3255
  */
 public class Database {
-    String url = "jdbc:derby:StudentInformation;create=true"; //url for StudentDB
+    String url = "jdbc:derby://localhost:1527/StudentInformation;create=true"; //url for StudentDB
     String username = "pdc";
     String password = "pdc";
     Connection conn = null;
@@ -32,13 +32,12 @@ public class Database {
         }
     }
     
-    public Student checkID(String id){
+    public Student checkID(int id){
         Student student = new Student();
         try{
             Statement statement = conn.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT NAME, ID, GENDER, BIRTHDAY, MAJOR"
-                    + " FROM STUDENT "
-            + "WHERE ID = '" +id+"'");
+            ResultSet rs = statement.executeQuery("SELECT NAME, ID, GENDER, BIRTHDAY, MAJOR FROM STUDENT "
+            + "WHERE ID = " +id+"");
             //if id is found
             if(rs.next()){
                 student.idFlag = true;
