@@ -58,7 +58,7 @@ public class Database {
         return student;
     }
  
-    public Student registerStudent(Student student){
+    public void registerStudent(Student student){
         Student newStudent = student;
         try{
             Statement statement = conn.createStatement();
@@ -66,11 +66,8 @@ public class Database {
                     "', "+newStudent.id+", '"+newStudent.gender+"', '"+newStudent.birthday+"', '"
                             +newStudent.major+"')");
             System.out.println("Student is added");
-            return newStudent;
         }catch(SQLException ex){
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
         }
-        //if fail to add
-        return null;
     }
 }
