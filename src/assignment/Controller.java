@@ -31,11 +31,12 @@ public class Controller implements ActionListener{
     }
     
     public boolean isCharacter(String name){
+        boolean isAllSpace = false;
         for(int i=0; i<name.length(); i++){
             char c = name.charAt(i);
-            if(!(c == ' ') || (((c<= 'A' && c >= 'Z')&&(c<='a' && c>='z')))){
+            if(!(c == ' ') && !Character.isLetter(c)){
                 return false;
-            }      
+            }
         }
         return true;
     }
@@ -83,24 +84,36 @@ public class Controller implements ActionListener{
                 break;
             case "Create student information":
                 //create student button on registerIdPage
-                if(this.view.idField.getText().length() != 7 || !isNumeric(this.view.idField.getText()))
+                boolean isError = false;
+                if(this.view.idField.getText().length() != 7 || !isNumeric(this.view.idField.getText())){
                     view.idError = true;
-                if(!isCharacter(this.view.nameField.getText()))
+                    isError = true;
+                }             
+                if(!isCharacter(this.view.nameField.getText())){
                     view.nameError = true;
-                if(!this.view.genderField.getText().equalsIgnoreCase("F")||!this.view.genderField.getText().equalsIgnoreCase("M"))
+                    isError = true;
+                }
+                if(!this.view.genderField.getText().equalsIgnoreCase("F")||!this.view.genderField.getText().equalsIgnoreCase("M")){
                     view.genderError = true;
-                if(!checkBday(this.view.bdayField.getText()))
+                    isError = true;
+                }                  
+                if(!checkBday(this.view.bdayField.getText())){
                     view.bdayError = true;
+                    isError = true;
+                }                   
                 if(!this.view.majorField.getText().equals("BSC")||
                         !this.view.majorField.getText().equals("BSIS")||
                         !this.view.majorField.getText().equals("BEN")||
                         !this.view.majorField.getText().equals("MSC")||
                         !this.view.majorField.getText().equals("MEN")||
-                        !this.view.majorField.getText().equals("DSC"))
+                        !this.view.majorField.getText().equals("DSC")){
                     view.majorError = true;
-        
-                    
-                      
+                    isError = true;
+                }
+                if(!isError)
+                    this.model.createStudent(); 
+                else
+                    this.model.errorRegi();
                 break;
             default:
                 break;
