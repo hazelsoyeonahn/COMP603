@@ -20,25 +20,34 @@ import java.util.Observable;
  * @author fvx3255
  */
 public class View extends JFrame implements Observer{
+    //for main panel
     private JPanel idPanel = new JPanel();
     private JLabel idLabel = new JLabel("Student ID: ");
     private JLabel welcomeLabel = new JLabel("Welcome ! Input student ID to see the information");
     private JLabel noidLabel = new JLabel("Can't find student ID?");
     private JLabel autLabel = new JLabel("AUT");
-    public JTextField idInput = new JTextField(7);
-    public JTextField idField = new JTextField();
-    public JTextField nameField = new JTextField();
-    public JTextField genderField = new JTextField();
-    public JTextField bdayField = new JTextField();
-    public JTextField majorField = new JTextField();
+    public JTextField idInput = new JTextField(7); //for searching
     private JLabel idNotFound = new JLabel("Student not found, please type correct student ID");
     private JButton idSearchButton = new JButton("Search");
     private JButton regiButton = new JButton("Register new student");
     private JButton listButton = new JButton("Show list of student");
     private JButton goMainButton = new JButton("Back to Main");
-    private JButton createStuButton = new JButton("Create student information");
     public static boolean goMainFlag = false;
     public static boolean goRegiPage = false;
+    
+    //for registering panel
+    private JPanel regiPanel = new JPanel();
+    public JTextField idField = new JTextField();
+    public JTextField nameField = new JTextField();
+    public JTextField genderField = new JTextField();
+    public JTextField bdayField = new JTextField();
+    public JTextField majorField = new JTextField();
+    private JButton createStuButton = new JButton("Create student information");
+    private JLabel idErrorLabel = new JLabel("ID must be 7 digits only");
+    private JLabel nameErrorLabel = new JLabel("Name must be alphabetic only");
+    private JLabel genderErrorLabel = new JLabel("Gender must be F or M");
+    private JLabel bdayErrorLabel = new JLabel("Birthday must be in 00/00/00 form");
+    private JLabel majorErrorLabel = new JLabel("Please input an available major");
     public static boolean idError = false;
     public static boolean nameError = false;
     public static boolean genderError = false;
@@ -132,7 +141,6 @@ public class View extends JFrame implements Observer{
         this.getContentPane().removeAll();
 
         //create new register panel
-        JPanel regiPanel = new JPanel();
         JLabel regiMessage = new JLabel("Please fill in the blank with new student's information with suggested form");
         JLabel regiId = new JLabel("ID (7 digits): ");
         JLabel regiName = new JLabel("Name (Full name): ");
@@ -141,8 +149,8 @@ public class View extends JFrame implements Observer{
         JLabel regiMajor = new JLabel("Major (BCIS/BSC/BEN/MSC/MEN/DSC): ");;
         
         //decorate panel, label, button and textfield
-        regiPanel.setBackground(Color.black);
-        regiPanel.setLayout(null);
+        this.regiPanel.setBackground(Color.black);
+        this.regiPanel.setLayout(null);
         regiMessage.setFont(new Font("Dialog", Font.BOLD, 12));
         regiMessage.setForeground(Color.white);
         regiMessage.setBounds(180, 100, 500, 30);
@@ -173,19 +181,19 @@ public class View extends JFrame implements Observer{
         this.createStuButton.setBackground(Color.LIGHT_GRAY);
         this.createStuButton.setBounds(290,400,190,30);
         
-        regiPanel.add(this.goMainButton);
-        regiPanel.add(regiMessage);
-        regiPanel.add(regiId);
-        regiPanel.add(idField);
-        regiPanel.add(regiName);
-        regiPanel.add(nameField);
-        regiPanel.add(regiGender);
-        regiPanel.add(genderField);
-        regiPanel.add(regiBirthday);
-        regiPanel.add(bdayField);
-        regiPanel.add(regiMajor);
-        regiPanel.add(majorField);
-        regiPanel.add(createStuButton);
+        this.regiPanel.add(this.goMainButton);
+        this.regiPanel.add(regiMessage);
+        this.regiPanel.add(regiId);
+        this.regiPanel.add(idField);
+        this.regiPanel.add(regiName);
+        this.regiPanel.add(nameField);
+        this.regiPanel.add(regiGender);
+        this.regiPanel.add(genderField);
+        this.regiPanel.add(regiBirthday);
+        this.regiPanel.add(bdayField);
+        this.regiPanel.add(regiMajor);
+        this.regiPanel.add(majorField);
+        this.regiPanel.add(createStuButton);
         this.add(regiPanel);
         this.revalidate();
         this.repaint();
@@ -233,6 +241,33 @@ public class View extends JFrame implements Observer{
             if(goRegiPage){
                this.registerInfo(); 
             }
+            if(idError){
+               this.idField.setText("");
+               this.idErrorLabel.setForeground(Color.red);
+               this.idErrorLabel.setBounds(490, 150, 200, 30);
+               this.regiPanel.add(idErrorLabel);
+               this.revalidate();
+               this.repaint();
+               idError = true;
+            }
+            if(nameError){
+               this.nameField.setText("");
+               this.nameErrorLabel.setForeground(Color.red);
+               this.nameErrorLabel.setBounds(540,200,200,30);
+               this.regiPanel.add((nameErrorLabel));
+               this.revalidate();
+               this.repaint();
+               nameError = true;
+            }
+            if(genderError){
+                this.genderField.setText("");
+                this.genderErrorLabel.setForeground(Color.red);
+                this.genderErrorLabel.setBounds(490,250,200,30);
+                this.revalidate();
+                this.repaint();
+                genderError = true;
+            }
+            
         }
     }
 }
