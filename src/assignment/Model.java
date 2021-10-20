@@ -56,7 +56,8 @@ public class Model extends Observable{
         this.notifyObservers();
     }
     
-    public void createStudent(){
+    public void createStudent(Student student){
+        
         this.setChanged();
         this.notifyObservers();
     }
