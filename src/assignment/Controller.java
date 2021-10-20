@@ -33,6 +33,7 @@ public class Controller implements ActionListener{
                 break;
             case "Register new student":
                 //register new student button
+                this.model.registerIdPage();
                 break;
             case "Show list of student":
                 //show list of student button
