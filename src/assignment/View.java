@@ -32,6 +32,7 @@ public class View extends JFrame implements Observer{
     private JButton listButton = new JButton("Show list of student");
     private JButton goMainButton = new JButton("Back to Main");
     public static boolean goMainFlag = false;
+    public static boolean goRegiPage = false;
     
     public View(){
         this.setTitle("AUT Student Information");
@@ -116,7 +117,34 @@ public class View extends JFrame implements Observer{
     }
     
     public void registerInfo(){
+        this.goRegiPage = false;
+        this.getContentPane().removeAll();
+
+        //create new register panel
+        JPanel regiPanel = new JPanel();
+        JLabel regiMessage = new JLabel("Please fill in the blank with new student's information with suggested form");
+        JLabel regiId = new JLabel("ID: ");
+        JLabel regiName = new JLabel("Name: ");
+        JLabel regiGender = new JLabel("Gender(M/F): ");
+        JLabel regiBirthday = new JLabel("Birthday(00/00/00): ");
+        JLabel regiMajor = new JLabel("Major(code): ");
+        JTextField idField = new JTextField();
+        JTextField nameField = new JTextField();
+        JTextField genderField = new JTextField();
+        JTextField bdayField = new JTextField();
+        JTextField majorField = new JTextField();
         
+        //decorate panel, label, button and textfield
+        regiPanel.setBackground(Color.black);
+        regiPanel.setLayout(null);
+        regiMessage.setFont(new Font("Dialog", Font.BOLD, 12));
+        regiMessage.setForeground(Color.white);
+        regiMessage.setBounds(230, 20, 400, 30);
+        
+        regiPanel.add(regiMessage);
+        this.add(regiPanel);
+        this.revalidate();
+        this.repaint();
     }
     public void startList(){
         
@@ -156,6 +184,9 @@ public class View extends JFrame implements Observer{
             if(goMainFlag){
               this.idInput.setText("");
               this.goBackMain();
+            }
+            if(goRegiPage){
+               this.registerInfo(); 
             }
         }
 
