@@ -33,6 +33,15 @@ public class Model extends Observable{
         }
     }
     
+    public boolean checkExistingID(int id){
+        this.id = id;
+        this.student = this.db.checkID(id);
+        if(this.student == null) //if id not existing return false
+            return false;
+        
+        return this.student.idFlag; //if id exist return true
+    }
+    
     public void backToMain(){
         if(this.student != null)
             this.student.idFlag = false;
@@ -43,6 +52,16 @@ public class Model extends Observable{
     
     public void registerIdPage(){
         this.view.goRegiPage = true;
+        this.setChanged();
+        this.notifyObservers();
+    }
+    
+    public void createStudent(){
+        this.setChanged();
+        this.notifyObservers();
+    }
+    
+    public void errorRegi(){
         this.setChanged();
         this.notifyObservers();
     }
