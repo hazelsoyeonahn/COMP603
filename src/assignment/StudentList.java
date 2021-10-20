@@ -11,10 +11,9 @@ import java.util.ArrayList;
  * @author fvx3255
  */
 public class StudentList {
-    private ArrayList<Student> studentList;
+    public static ArrayList<Student> studentList = new ArrayList<Student>();
     
     public StudentList(){
-        this.studentList = new ArrayList<Student>();
     }
     
     public void addStudent(Student student){
