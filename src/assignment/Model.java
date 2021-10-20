@@ -14,7 +14,7 @@ import java.util.Random;
  */
 public class Model extends Observable{
     public Student student;
-    public StudentList stList;
+    public static StudentList stList;
     public Database db;
     public int id;
     public View view;
