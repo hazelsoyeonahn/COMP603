@@ -22,6 +22,8 @@ public class Controller implements ActionListener{
     }
     
     public boolean isNumeric(String id){
+        if(id.length() == 0)
+            return false;
         try{
             Integer.parseInt(id);
             return true;
@@ -84,9 +86,16 @@ public class Controller implements ActionListener{
                 break;
             case "Create student information":
                 //create student button on registerIdPage
+                Student newStudent = new Student();
                 boolean isError = false;
-                int newId = Integer.parseInt(this.view.idField.getText());
-                if(this.view.idField.getText().length() != 7 || !isNumeric(this.view.idField.getText())){
+                int newId = 0;
+                try{
+                   newId = Integer.parseInt(this.view.idField.getText());
+                }catch(NumberFormatException ex){
+                   view.idError = true;
+                   isError = true;
+                  }   
+                if(this.view.idField.getText().length() != 7){
                     view.idError = true;
                      isError = true;          
                 }
@@ -97,25 +106,32 @@ public class Controller implements ActionListener{
                 else{
                     view.idError = false; 
                     view.existIdError = false;
+                    newStudent.id = newId;
                 }      
                 if(!isCharacter(this.view.nameField.getText())|| this.view.nameField.getText().length() == 0){
                     view.nameError = true;
                     isError = true;
                 }
-                else
-                    view.nameError = false;
+                else{
+                     view.nameError = false;
+                     newStudent.name = this.view.nameField.getText();
+                }       
                 if(!this.view.genderField.getText().equalsIgnoreCase("F")&&!this.view.genderField.getText().equalsIgnoreCase("M")){
                     view.genderError = true;
                     isError = true;
                 }
-                else
-                    view.genderError = false;
+                else{
+                     view.genderError = false;
+                     newStudent.gender = this.view.genderField.getText();
+                }             
                 if(!checkBday(this.view.bdayField.getText())){
                     view.bdayError = true;
                     isError = true;
                 }
-                else
-                    view.bdayError = false;
+                else{
+                     view.bdayError = false;
+                     newStudent.birthday = this.view.bdayField.getText();
+                }               
                 if(!this.view.majorField.getText().equalsIgnoreCase("BSC")&&
                         !this.view.majorField.getText().equalsIgnoreCase("BCIS")&&
                         !this.view.majorField.getText().equalsIgnoreCase("BEN")&&
@@ -125,12 +141,14 @@ public class Controller implements ActionListener{
                     view.majorError = true;
                     isError = true;
                 }
-                else
-                    view.majorError = false;
+                else{
+                     view.majorError = false;
+                     newStudent.major = this.view.majorField.getText();
+                }        
                 if(!isError)
-                    this.model.createStudent(); 
+                    this.model.createStudent(newStudent); 
                 else
-                    this.model.errorRegi();
+                    this.model.errorRegi(); //if there is any error, don't register and give warning
                 break;
             default:
                 break;
