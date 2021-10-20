@@ -85,12 +85,19 @@ public class Controller implements ActionListener{
             case "Create student information":
                 //create student button on registerIdPage
                 boolean isError = false;
+                int newId = Integer.parseInt(this.view.idField.getText());
                 if(this.view.idField.getText().length() != 7 || !isNumeric(this.view.idField.getText())){
                     view.idError = true;
+                     isError = true;          
+                }
+                else if(this.model.checkExistingID(newId)){
+                    view.existIdError = true;
                     isError = true;
                 }
-                else
-                    view.idError = false;
+                else{
+                    view.idError = false; 
+                    view.existIdError = false;
+                }      
                 if(!isCharacter(this.view.nameField.getText())|| this.view.nameField.getText().length() == 0){
                     view.nameError = true;
                     isError = true;
@@ -109,12 +116,12 @@ public class Controller implements ActionListener{
                 }
                 else
                     view.bdayError = false;
-                if(!this.view.majorField.getText().equals("BSC")||
-                        !this.view.majorField.getText().equals("BSIS")||
-                        !this.view.majorField.getText().equals("BEN")||
-                        !this.view.majorField.getText().equals("MSC")||
-                        !this.view.majorField.getText().equals("MEN")||
-                        !this.view.majorField.getText().equals("DSC")){
+                if(!this.view.majorField.getText().equalsIgnoreCase("BSC")&&
+                        !this.view.majorField.getText().equalsIgnoreCase("BCIS")&&
+                        !this.view.majorField.getText().equalsIgnoreCase("BEN")&&
+                        !this.view.majorField.getText().equalsIgnoreCase("MSC")&&
+                        !this.view.majorField.getText().equalsIgnoreCase("MEN")&&
+                        !this.view.majorField.getText().equalsIgnoreCase("DSC")){
                     view.majorError = true;
                     isError = true;
                 }
