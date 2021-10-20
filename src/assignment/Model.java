@@ -41,6 +41,8 @@ public class Model extends Observable{
     }
     
     public void registerIdPage(){
-        
+        this.view.goRegiPage = true;
+        this.setChanged();
+        this.notifyObservers();
     }
 }
