@@ -45,19 +45,19 @@ public class Controller implements ActionListener{
         if(bday.length() != 8)
             return false;
         else{
-            //check if it is in the right form with /
+            //check if date is in correct form
             if(bday.charAt(2) == '/' && bday.charAt(5) == '/'){
-               for(int i=0; i<8; i++){
-                   if(i != 2 && i != 5){
-                       char c = bday.charAt(i);
-                        if(!(c >='0') && (c <= '9'))
-                           return false;
-                        return true;
-                   }      
-               }              
-            }   
-            else
-                return false;
+               try{
+                   int day = Integer.parseInt(bday.substring(0, 2));
+                   int month = Integer.parseInt(bday.substring(3,5));
+                   int year = Integer.parseInt(bday.substring(6,8));
+                   
+                   if(0<=day && day<=31 && 0<=month && month<=12 && 0<=year && year<=99)
+                       return true;
+               }catch(NumberFormatException e){
+                   return false;
+               }
+             }
         }
         return false;
     }
@@ -88,19 +88,27 @@ public class Controller implements ActionListener{
                 if(this.view.idField.getText().length() != 7 || !isNumeric(this.view.idField.getText())){
                     view.idError = true;
                     isError = true;
-                }             
-                if(!isCharacter(this.view.nameField.getText())){
+                }
+                else
+                    view.idError = false;
+                if(!isCharacter(this.view.nameField.getText())|| this.view.nameField.getText().length() == 0){
                     view.nameError = true;
                     isError = true;
                 }
-                if(!this.view.genderField.getText().equalsIgnoreCase("F")||!this.view.genderField.getText().equalsIgnoreCase("M")){
+                else
+                    view.nameError = false;
+                if(!this.view.genderField.getText().equalsIgnoreCase("F")&&!this.view.genderField.getText().equalsIgnoreCase("M")){
                     view.genderError = true;
                     isError = true;
-                }                  
+                }
+                else
+                    view.genderError = false;
                 if(!checkBday(this.view.bdayField.getText())){
                     view.bdayError = true;
                     isError = true;
-                }                   
+                }
+                else
+                    view.bdayError = false;
                 if(!this.view.majorField.getText().equals("BSC")||
                         !this.view.majorField.getText().equals("BSIS")||
                         !this.view.majorField.getText().equals("BEN")||
@@ -110,6 +118,8 @@ public class Controller implements ActionListener{
                     view.majorError = true;
                     isError = true;
                 }
+                else
+                    view.majorError = false;
                 if(!isError)
                     this.model.createStudent(); 
                 else
