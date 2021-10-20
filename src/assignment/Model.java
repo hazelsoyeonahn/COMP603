@@ -34,7 +34,8 @@ public class Model extends Observable{
     }
     
     public void backToMain(){
-        this.student.idFlag = false;
+        if(this.student != null)
+            this.student.idFlag = false;
         this.view.goMainFlag = true;
         this.setChanged();
         this.notifyObservers();
