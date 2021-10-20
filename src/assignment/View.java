@@ -30,6 +30,7 @@ public class View extends JFrame implements Observer{
     private JButton idSearchButton = new JButton("Search");
     private JButton regiButton = new JButton("Register new student");
     private JButton listButton = new JButton("Show list of student");
+    private JButton goMainButton = new JButton("Back to Main");
     
     public View(){
         this.setTitle("AUT Student Information");
@@ -77,21 +78,25 @@ public class View extends JFrame implements Observer{
         JLabel stBirth = new JLabel("Birthday: "+stu.birthday);
         JLabel stGender = new JLabel("Gender: "+stu.gender);
         JLabel stMajor = new JLabel("Major: "+stu.major);
-        JButton goMainButton = new JButton("Back to Main");
         
         stId.setForeground(Color.white);
         stName.setForeground(Color.white);
         stBirth.setForeground(Color.white);
         stGender.setForeground(Color.white);
         stMajor.setForeground(Color.white);
-        stId.setBounds(10,50,100,50);
-        stName.setBounds(10,70,100,50);
-        stBirth.setBounds(10,100,200,500);
-        stGender.setBounds(10,150,100,50);
-        stMajor.setBounds(10,200,100,50);
-        goMainButton.setFont(new Font("Dialog", Font.BOLD, 11));
-        goMainButton.setBackground(Color.LIGHT_GRAY);
-        goMainButton.setBounds(10,10,170,30);
+        stId.setFont(new Font("Dialog", Font.PLAIN, 15));
+        stName.setFont(new Font("Dialog", Font.PLAIN, 15));
+        stBirth.setFont(new Font("Dialog", Font.PLAIN, 15));
+        stGender.setFont(new Font("Dialog", Font.PLAIN, 15));
+        stMajor.setFont(new Font("Dialog", Font.PLAIN, 15));
+        stId.setBounds(30,50,100,30);
+        stName.setBounds(30,80,200,30);
+        stBirth.setBounds(30,140,200,30);
+        stGender.setBounds(30,110,100,30);
+        stMajor.setBounds(30,170,100,30);
+        this.goMainButton.setFont(new Font("Dialog", Font.BOLD, 11));
+        this.goMainButton.setBackground(Color.LIGHT_GRAY);
+        this.goMainButton.setBounds(10,10,170,30);
         
         this.getContentPane().removeAll();
         infoPanel.setLayout(null);
@@ -119,6 +124,7 @@ public class View extends JFrame implements Observer{
         this.idSearchButton.addActionListener(listener);
         this.regiButton.addActionListener(listener);
         this.listButton.addActionListener(listener);
+        this.goMainButton.addActionListener(listener);
     }
     
     @Override
