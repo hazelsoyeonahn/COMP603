@@ -60,6 +60,9 @@ public class View extends JFrame implements Observer{
     public static boolean existIdError = false;
     public static boolean registerSucceed = false;
     
+    //for list panel
+    public static boolean listStudent = false;
+    
     public View(){
         this.setTitle("AUT Student Information");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -204,8 +207,13 @@ public class View extends JFrame implements Observer{
         this.revalidate();
         this.repaint();
     }
-    public void startList(ArrayList<Student> stList){
+    public void startList(StudentList stList){
+        ArrayList<Student> list = stList.returnList();
         
+        //list Panel
+        JPanel listPanel = new JPanel(){
+            
+        }
     }
     
     public void goBackMain(){
@@ -386,6 +394,12 @@ public class View extends JFrame implements Observer{
                 this.revalidate();
                 this.repaint();
             }
+            if(listStudent){
+                Model model = new Model();
+                StudentList stList = model.stList;
+                this.startList(stList);
+            }
+            
         }
     }
 }
