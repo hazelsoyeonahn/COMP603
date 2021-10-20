@@ -27,10 +27,16 @@ public class Model extends Observable{
         this.id = id;
         this.student = this.db.checkID(id);
         
-        if(student.idFlag){
+        if(student != null && student.idFlag){
             this.setChanged();
             this.notifyObservers(this.student);
         }
+        if(student == null){
+            this.view.searchError = true;
+            this.setChanged();
+            this.notifyObservers();
+        }
+            
     }
     
     public boolean checkExistingID(int id){
@@ -63,7 +69,12 @@ public class Model extends Observable{
         this.notifyObservers();
     }
     
-    public void errorRegi(){
+    public void errorDetected(){
+        this.setChanged();
+        this.notifyObservers();
+    }
+    
+    public void showListStudent(){
         this.setChanged();
         this.notifyObservers();
     }
