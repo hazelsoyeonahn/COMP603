@@ -70,4 +70,8 @@ public class Database {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public void getStudentList(){
+        
+    }
 }
