@@ -44,6 +44,7 @@ public class View extends JFrame implements Observer{
     public JTextField majorField = new JTextField();
     private JButton createStuButton = new JButton("Create student information");
     private JLabel idErrorLabel = new JLabel("ID must be 7 digits only");
+    private JLabel existIdLabel = new JLabel("ID already exist, please try different ID");
     private JLabel nameErrorLabel = new JLabel("Name must be alphabetic only");
     private JLabel genderErrorLabel = new JLabel("Gender must be F or M");
     private JLabel bdayErrorLabel = new JLabel("Birthday must be in 00/00/00 form");
@@ -53,6 +54,7 @@ public class View extends JFrame implements Observer{
     public static boolean genderError = false;
     public static boolean bdayError = false;
     public static boolean majorError = false;
+    public static boolean existIdError = false;
     
     public View(){
         this.setTitle("AUT Student Information");
@@ -245,29 +247,86 @@ public class View extends JFrame implements Observer{
                this.idField.setText("");
                this.idErrorLabel.setForeground(Color.red);
                this.idErrorLabel.setBounds(490, 150, 200, 30);
+               this.idErrorLabel.setVisible(true);
                this.regiPanel.add(idErrorLabel);
                this.revalidate();
                this.repaint();
-               idError = true;
+            }
+            if(!idError){
+                this.idErrorLabel.setVisible(false);
+                this.revalidate();
+                this.repaint();
+            }
+            if(existIdError){
+                this.idField.setText("");
+                this.existIdLabel.setForeground(Color.red);
+                this.existIdLabel.setBounds(490,150,250,30);
+                this.existIdLabel.setVisible(true);
+                this.regiPanel.add(existIdLabel);
+                this.revalidate();
+                this.repaint();
+            }
+            if(!existIdError){
+                this.existIdLabel.setVisible(false);
+                this.revalidate();
+                this.repaint();
             }
             if(nameError){
                this.nameField.setText("");
                this.nameErrorLabel.setForeground(Color.red);
                this.nameErrorLabel.setBounds(540,200,200,30);
-               this.regiPanel.add((nameErrorLabel));
+               this.nameErrorLabel.setVisible(true);
+               this.regiPanel.add(nameErrorLabel);
                this.revalidate();
                this.repaint();
-               nameError = true;
+            }
+            if(!nameError){
+                this.nameErrorLabel.setVisible(false);
+                this.revalidate();
+                this.repaint();
             }
             if(genderError){
                 this.genderField.setText("");
                 this.genderErrorLabel.setForeground(Color.red);
-                this.genderErrorLabel.setBounds(490,250,200,30);
+                this.genderErrorLabel.setBounds(500,250,200,30);
+                this.genderErrorLabel.setVisible(true);
+                this.regiPanel.add(genderErrorLabel);
                 this.revalidate();
                 this.repaint();
-                genderError = true;
             }
-            
+            if(!genderError){
+                this.genderErrorLabel.setVisible(false);
+                this.revalidate();
+                this.repaint();
+            }
+            if(bdayError){
+                this.bdayField.setText("");
+                this.bdayErrorLabel.setForeground(Color.red);
+                this.bdayErrorLabel.setBounds(500, 300, 200, 30);
+                this.bdayErrorLabel.setVisible(true);
+                this.regiPanel.add(bdayErrorLabel);
+                this.revalidate();
+                this.repaint();
+            }
+            if(!bdayError){
+                this.bdayErrorLabel.setVisible(false);
+                this.revalidate();
+                this.repaint();
+            }
+            if(majorError){
+                this.majorField.setText("");
+                this.majorErrorLabel.setForeground(Color.red);
+                this.majorErrorLabel.setBounds(500,350,200,30);
+                this.majorErrorLabel.setVisible(true);
+                this.regiPanel.add(majorErrorLabel);
+                this.revalidate();
+                this.repaint();
+            }
+            if(!majorError){
+                this.majorErrorLabel.setVisible(false);
+                this.revalidate();
+                this.repaint();
+            }
         }
     }
 }
