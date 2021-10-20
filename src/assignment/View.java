@@ -39,6 +39,11 @@ public class View extends JFrame implements Observer{
     private JButton createStuButton = new JButton("Create student information");
     public static boolean goMainFlag = false;
     public static boolean goRegiPage = false;
+    public static boolean idError = false;
+    public static boolean nameError = false;
+    public static boolean genderError = false;
+    public static boolean bdayError = false;
+    public static boolean majorError = false;
     
     public View(){
         this.setTitle("AUT Student Information");
@@ -129,11 +134,11 @@ public class View extends JFrame implements Observer{
         //create new register panel
         JPanel regiPanel = new JPanel();
         JLabel regiMessage = new JLabel("Please fill in the blank with new student's information with suggested form");
-        JLabel regiId = new JLabel("ID (7 digit): ");
+        JLabel regiId = new JLabel("ID (7 digits): ");
         JLabel regiName = new JLabel("Name (Full name): ");
         JLabel regiGender = new JLabel("Gender (M/F): ");
         JLabel regiBirthday = new JLabel("Birthday (00/00/00): ");
-        JLabel regiMajor = new JLabel("Major (code): ");;
+        JLabel regiMajor = new JLabel("Major (BCIS/BSC/BEN/MSC/MEN/DSC): ");;
         
         //decorate panel, label, button and textfield
         regiPanel.setBackground(Color.black);
@@ -143,7 +148,7 @@ public class View extends JFrame implements Observer{
         regiMessage.setBounds(180, 100, 500, 30);
         regiId.setFont(new Font("Dialog", Font.BOLD, 12));
         regiId.setForeground(Color.white);
-        regiId.setBounds(300,150,70,30);
+        regiId.setBounds(295,150,70,30);
         this.idField.setBounds(380,150,100,30);
         regiName.setFont(new Font("Dialog", Font.BOLD, 12));
         regiName.setForeground(Color.white);
@@ -159,7 +164,7 @@ public class View extends JFrame implements Observer{
         this.bdayField.setBounds(380,300,100,30);
         regiMajor.setFont(new Font("Dialog", Font.BOLD, 12));
         regiMajor.setForeground(Color.white);
-        regiMajor.setBounds(286,350,90,30);
+        regiMajor.setBounds(150,350,250,30);
         this.majorField.setBounds(380,350,100,30);
         this.goMainButton.setFont(new Font("Dialog", Font.BOLD, 11));
         this.goMainButton.setBackground(Color.LIGHT_GRAY);
