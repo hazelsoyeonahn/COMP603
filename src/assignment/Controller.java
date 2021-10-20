@@ -87,7 +87,7 @@ public class Controller implements ActionListener{
                 break;
             case "Show list of student":
                 //show list of student button
-                
+                this.model.showListStudent();
                 break;
             case "Back to Main":
                 //back to main page button
