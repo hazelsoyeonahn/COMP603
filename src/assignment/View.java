@@ -31,6 +31,7 @@ public class View extends JFrame implements Observer{
     private JButton regiButton = new JButton("Register new student");
     private JButton listButton = new JButton("Show list of student");
     private JButton goMainButton = new JButton("Back to Main");
+    public static boolean goMainFlag = false;
     
     public View(){
         this.setTitle("AUT Student Information");
@@ -68,6 +69,7 @@ public class View extends JFrame implements Observer{
         this.idPanel.add(listButton);
         this.add(idPanel);
         this.setVisible(true);
+
     }
     
     public void startInfo(Student stu){
@@ -120,6 +122,15 @@ public class View extends JFrame implements Observer{
         
     }
     
+    public void goBackMain(){
+       this.goMainFlag = false;
+       this.getContentPane().removeAll();
+       idPanel.setVisible(true);
+       this.add(idPanel);
+       this.revalidate();
+       this.repaint();
+    }
+    
     public void addActionListener(ActionListener listener){
         this.idSearchButton.addActionListener(listener);
         this.regiButton.addActionListener(listener);
@@ -128,17 +139,25 @@ public class View extends JFrame implements Observer{
     }
     
     @Override
-    public void update(Observable o, Object arg){
+    public void update(Observable o, Object arg){       
         Student student = (Student) arg; //get student object
-        if(!student.idFlag){ //if login fails, empty idInput
-            this.idInput.setText("");
-            this.idNotFound.setBounds(300,300,200,50);
-            this.idNotFound.setForeground(Color.red);
-            this.idPanel.add(idNotFound);
+        if(student != null){
+            if(!student.idFlag){ //if login fails, empty idInput
+               this.idInput.setText("");
+               this.idNotFound.setBounds(300,300,200,50);
+               this.idNotFound.setForeground(Color.red);
+               this.idPanel.add(idNotFound);
+           }
+           //if student is found start display their information
+           else{
+               this.startInfo(student);
+           } 
+        }else{
+            if(goMainFlag){
+              this.idInput.setText("");
+              this.goBackMain();
+            }
         }
-        //if student is found start display their information
-        else{
-            this.startInfo(student);
-        }
+
     }
 }
