@@ -77,17 +77,21 @@ public class View extends JFrame implements Observer{
         JLabel stBirth = new JLabel("Birthday: "+stu.birthday);
         JLabel stGender = new JLabel("Gender: "+stu.gender);
         JLabel stMajor = new JLabel("Major: "+stu.major);
+        JButton goMainButton = new JButton("Back to Main");
         
         stId.setForeground(Color.white);
         stName.setForeground(Color.white);
         stBirth.setForeground(Color.white);
         stGender.setForeground(Color.white);
         stMajor.setForeground(Color.white);
-        stId.setBounds(250,10,100,50);
-        stName.setBounds(250,50,100,50);
-        stBirth.setBounds(250,100,200,500);
-        stGender.setBounds(250,150,100,50);
-        stMajor.setBounds(250,200,100,50);
+        stId.setBounds(10,50,100,50);
+        stName.setBounds(10,70,100,50);
+        stBirth.setBounds(10,100,200,500);
+        stGender.setBounds(10,150,100,50);
+        stMajor.setBounds(10,200,100,50);
+        goMainButton.setFont(new Font("Dialog", Font.BOLD, 11));
+        goMainButton.setBackground(Color.LIGHT_GRAY);
+        goMainButton.setBounds(10,10,170,30);
         
         this.getContentPane().removeAll();
         infoPanel.setLayout(null);
@@ -97,6 +101,7 @@ public class View extends JFrame implements Observer{
         infoPanel.add(stBirth);
         infoPanel.add(stGender);
         infoPanel.add(stMajor);
+        infoPanel.add(goMainButton);
         infoPanel.setVisible(true);
         this.add(infoPanel);
         this.revalidate();
