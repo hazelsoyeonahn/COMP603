@@ -58,6 +58,7 @@ public class Model extends Observable{
     
     public void createStudent(Student newStudent){
         this.db.registerStudent(newStudent);
+        this.view.registerSucceed = true;
         this.setChanged();
         this.notifyObservers();
     }
