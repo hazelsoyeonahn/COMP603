@@ -76,14 +76,14 @@ public class Database {
         try{
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery("SELECT NAME, ID FROM STUDENT");
-            Student tempStudent = new Student();
-            
+           
            while(rs.next()){
+               Student tempStudent = new Student();
                tempStudent.id = rs.getInt("ID");
                tempStudent.name = rs.getString("NAME");
                stList.addStudent(tempStudent);
            }
-           
+           System.out.println(stList.returnList().toString());
            return stList;
         }catch(SQLException ex){
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
