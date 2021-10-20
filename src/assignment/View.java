@@ -31,6 +31,7 @@ public class View extends JFrame implements Observer{
     private JButton regiButton = new JButton("Register new student");
     private JButton listButton = new JButton("Show list of student");
     private JButton goMainButton = new JButton("Back to Main");
+    private JButton createStuButton = new JButton("Create student information");
     public static boolean goMainFlag = false;
     public static boolean goRegiPage = false;
     
@@ -163,6 +164,9 @@ public class View extends JFrame implements Observer{
         this.goMainButton.setFont(new Font("Dialog", Font.BOLD, 11));
         this.goMainButton.setBackground(Color.LIGHT_GRAY);
         this.goMainButton.setBounds(10,10,170,30);
+        this.createStuButton.setFont(new Font("Dialog", Font.BOLD, 11));
+        this.createStuButton.setBackground(Color.LIGHT_GRAY);
+        this.createStuButton.setBounds(290,400,190,30);
         
         regiPanel.add(this.goMainButton);
         regiPanel.add(regiMessage);
@@ -176,6 +180,7 @@ public class View extends JFrame implements Observer{
         regiPanel.add(bdayField);
         regiPanel.add(regiMajor);
         regiPanel.add(majorField);
+        regiPanel.add(createStuButton);
         this.add(regiPanel);
         this.revalidate();
         this.repaint();
@@ -198,6 +203,7 @@ public class View extends JFrame implements Observer{
         this.regiButton.addActionListener(listener);
         this.listButton.addActionListener(listener);
         this.goMainButton.addActionListener(listener);
+        this.createStuButton.addActionListener(listener);
     }
     
     @Override
@@ -223,6 +229,5 @@ public class View extends JFrame implements Observer{
                this.registerInfo(); 
             }
         }
-
     }
 }
