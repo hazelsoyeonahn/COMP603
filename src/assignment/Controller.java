@@ -70,9 +70,16 @@ public class Controller implements ActionListener{
         switch(command){
             case "Search":
                 //id search button
-                int id = Integer.parseInt(this.view.idInput.getText()); //get searchable id
-                
-                this.model.checkID(id);
+                int id =0;
+                try{
+                    id = Integer.parseInt(this.view.idInput.getText()); //get searchable id
+                    this.view.searchError = false;
+                    this.model.checkID(id);
+                }catch(NumberFormatException ex){
+                    this.view.searchError = true;
+                    this.model.errorDetected();
+                    
+                }
                 break;
             case "Register new student":
                 //register new student button
@@ -80,6 +87,8 @@ public class Controller implements ActionListener{
                 break;
             case "Show list of student":
                 //show list of student button
+                
+                break;
             case "Back to Main":
                 //back to main page button
                 this.model.backToMain();
@@ -148,7 +157,7 @@ public class Controller implements ActionListener{
                 if(!isError)
                     this.model.createStudent(newStudent); 
                 else
-                    this.model.errorRegi(); //if there is any error, don't register and give warning
+                    this.model.errorDetected(); //if there is any error, don't register and give warning
                 break;
             default:
                 break;
