@@ -17,6 +17,10 @@ public class StudentList {
         this.studentList = new ArrayList<Student>();
     }
     
+    public void addStudent(Student student){
+        this.studentList.add(student);
+    }
+    
     public ArrayList<Student> returnList(){
         return this.studentList;
     }
