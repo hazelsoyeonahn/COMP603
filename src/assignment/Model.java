@@ -16,6 +16,7 @@ public class Model extends Observable{
     public Student student;
     public Database db;
     public int id;
+    public View view;
     
     public Model(){
         this.db = new Database();
@@ -30,5 +31,12 @@ public class Model extends Observable{
             this.setChanged();
             this.notifyObservers(this.student);
         }
+    }
+    
+    public void backToMain(){
+        this.student.idFlag = false;
+        this.view.goMainFlag = true;
+        this.setChanged();
+        this.notifyObservers();
     }
 }
