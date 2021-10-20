@@ -59,10 +59,7 @@ public class View extends JFrame implements Observer{
     public static boolean majorError = false;
     public static boolean existIdError = false;
     public static boolean registerSucceed = false;
-    
-    //for list panel
-    public static boolean listStudent = false;
-    
+ 
     public View(){
         this.setTitle("AUT Student Information");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -207,13 +204,42 @@ public class View extends JFrame implements Observer{
         this.revalidate();
         this.repaint();
     }
-    public void startList(StudentList stList){
-        ArrayList<Student> list = stList.returnList();
+    public void startList(){
+        StudentList stList = new StudentList();
+        ArrayList<Student> list = stList.studentList;
+        this.getContentPane().removeAll();
         
         //list Panel
-        JPanel listPanel = new JPanel(){
-            
+        JPanel listPanel = new JPanel();
+        listPanel.setLayout(null);
+        listPanel.setBackground(Color.black);
+        this.goMainButton.setFont(new Font("Dialog", Font.BOLD, 11));
+        this.goMainButton.setBackground(Color.LIGHT_GRAY);
+        this.goMainButton.setBounds(10,10,170,30);
+        listPanel.add(goMainButton);
+        
+        //make array of students label
+        JLabel[] student = new JLabel[list.size()];
+        int i1=30;
+        
+        for(int i=0; i<list.size(); i++){
+            String info = "";
+            info+=list.get(i).id;
+            info+=" ";
+            info+=list.get(i).name;
+            student[i] = new JLabel(info);
+            student[i].setForeground(Color.white);
+            student[i].setBounds(30, i1, 200, 30);
+            listPanel.add(student[i]);
+            i1+= 20;
         }
+        
+        
+        
+        
+        this.add(listPanel);
+        this.revalidate();
+        this.repaint();
     }
     
     public void goBackMain(){
@@ -271,20 +297,27 @@ public class View extends JFrame implements Observer{
     }
     
     @Override
-    public void update(Observable o, Object arg){       
-        Student student = (Student) arg; //get student object
+    public void update(Observable o, Object arg){   
+        Student student = null;
+        try{
+            student = (Student) arg;//get Student object
+        }catch(ClassCastException ex){    
+        }
+        StudentList stList = null;
+        try{
+           stList = (StudentList) arg;//get StudentList object 
+        }catch(ClassCastException ex){
+        }
         if(student != null){
-            if(!student.idFlag){ //if login fails, empty idInput
-               this.idInput.setText("");
-               this.idNotFound.setBounds(300,300,200,50);
-               this.idNotFound.setForeground(Color.red);
-               this.idPanel.add(idNotFound);
-           }
-           //if student is found start display their information
-           else{
+            if(student.idFlag){ //if login succeed, start info
                this.startInfo(student);
-           } 
-        }else{
+           }
+       
+        }
+        if(stList != null){
+            
+        }
+        else{
             if(goMainFlag){
               this.regiDefault();
               this.searchError = false;
@@ -393,11 +426,6 @@ public class View extends JFrame implements Observer{
                 this.idNotFound.setVisible(false);
                 this.revalidate();
                 this.repaint();
-            }
-            if(listStudent){
-                Model model = new Model();
-                StudentList stList = model.stList;
-                this.startList(stList);
             }
             
         }
