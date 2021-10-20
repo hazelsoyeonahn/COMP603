@@ -71,7 +71,23 @@ public class Database {
         }
     }
     
-    public void getStudentList(){
-        
+    public StudentList getStudentList(){
+        StudentList stList = new StudentList();
+        try{
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT NAME, ID FROM STUDENT");
+            Student tempStudent = new Student();
+            
+           while(rs.next()){
+               tempStudent.id = rs.getInt("ID");
+               tempStudent.name = rs.getString("NAME");
+               stList.addStudent(tempStudent);
+           }
+           
+           return stList;
+        }catch(SQLException ex){
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 }
