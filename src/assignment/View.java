@@ -123,11 +123,11 @@ public class View extends JFrame implements Observer{
         //create new register panel
         JPanel regiPanel = new JPanel();
         JLabel regiMessage = new JLabel("Please fill in the blank with new student's information with suggested form");
-        JLabel regiId = new JLabel("ID: ");
-        JLabel regiName = new JLabel("Name: ");
-        JLabel regiGender = new JLabel("Gender(M/F): ");
-        JLabel regiBirthday = new JLabel("Birthday(00/00/00): ");
-        JLabel regiMajor = new JLabel("Major(code): ");
+        JLabel regiId = new JLabel("ID (7 digit): ");
+        JLabel regiName = new JLabel("Name (Full name): ");
+        JLabel regiGender = new JLabel("Gender (M/F): ");
+        JLabel regiBirthday = new JLabel("Birthday (00/00/00): ");
+        JLabel regiMajor = new JLabel("Major (code): ");
         JTextField idField = new JTextField();
         JTextField nameField = new JTextField();
         JTextField genderField = new JTextField();
@@ -139,9 +139,21 @@ public class View extends JFrame implements Observer{
         regiPanel.setLayout(null);
         regiMessage.setFont(new Font("Dialog", Font.BOLD, 12));
         regiMessage.setForeground(Color.white);
-        regiMessage.setBounds(230, 20, 400, 30);
+        regiMessage.setBounds(180, 20, 500, 30);
+        regiId.setFont(new Font("Dialog", Font.BOLD, 12));
+        regiId.setForeground(Color.white);
+        regiId.setBounds(200,100,70,30);
+        idField.setBounds(280,100,100,30);
+        regiName.setFont(new Font("Dialog", Font.BOLD, 12));
+        regiName.setForeground(Color.white);
+        regiName.setBounds(160,150,140,30);
+        nameField.setBounds(280,150,150,30);
         
         regiPanel.add(regiMessage);
+        regiPanel.add(regiId);
+        regiPanel.add(idField);
+        regiPanel.add(regiName);
+        regiPanel.add(nameField);
         this.add(regiPanel);
         this.revalidate();
         this.repaint();
