@@ -49,12 +49,14 @@ public class View extends JFrame implements Observer{
     private JLabel genderErrorLabel = new JLabel("Gender must be F or M");
     private JLabel bdayErrorLabel = new JLabel("Birthday must be in 00/00/00 form");
     private JLabel majorErrorLabel = new JLabel("Please input an available major");
+    private JLabel regiSucLabel = new JLabel("Student is registered!");
     public static boolean idError = false;
     public static boolean nameError = false;
     public static boolean genderError = false;
     public static boolean bdayError = false;
     public static boolean majorError = false;
     public static boolean existIdError = false;
+    public static boolean registerSucceed = false;
     
     public View(){
         this.setTitle("AUT Student Information");
@@ -324,6 +326,19 @@ public class View extends JFrame implements Observer{
             }
             if(!majorError){
                 this.majorErrorLabel.setVisible(false);
+                this.revalidate();
+                this.repaint();
+            }
+            if(registerSucceed){
+                this.regiSucLabel.setForeground(Color.blue);
+                this.regiSucLabel.setBounds(600,300,150,30);
+                this.regiSucLabel.setVisible(true);
+                this.regiPanel.add(regiSucLabel);
+                this.revalidate();
+                this.repaint();
+            }
+            if(!registerSucceed){
+                this.regiSucLabel.setVisible(false);
                 this.revalidate();
                 this.repaint();
             }
