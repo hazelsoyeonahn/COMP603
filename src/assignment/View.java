@@ -15,6 +15,7 @@ import javax.swing.JFrame;
 import java.util.Observer;
 import java.awt.event.ActionListener;
 import java.util.Observable;
+import java.util.ArrayList;
 /**
  *
  * @author fvx3255
@@ -34,6 +35,7 @@ public class View extends JFrame implements Observer{
     private JButton goMainButton = new JButton("Back to Main");
     public static boolean goMainFlag = false;
     public static boolean goRegiPage = false;
+    public static boolean searchError = false;
     
     //for registering panel
     private JPanel regiPanel = new JPanel();
@@ -150,7 +152,7 @@ public class View extends JFrame implements Observer{
         JLabel regiName = new JLabel("Name (Full name): ");
         JLabel regiGender = new JLabel("Gender (M/F): ");
         JLabel regiBirthday = new JLabel("Birthday (00/00/00): ");
-        JLabel regiMajor = new JLabel("Major (BCIS/BSC/BEN/MSC/MEN/DSC): ");;
+        JLabel regiMajor = new JLabel("Major (BCIS/BSC/BEN/MSC/MEN/DSC): ");
         
         //decorate panel, label, button and textfield
         this.regiPanel.setBackground(Color.black);
@@ -202,7 +204,7 @@ public class View extends JFrame implements Observer{
         this.revalidate();
         this.repaint();
     }
-    public void startList(){
+    public void startList(ArrayList<Student> stList){
         
     }
     
@@ -213,6 +215,43 @@ public class View extends JFrame implements Observer{
        this.add(idPanel);
        this.revalidate();
        this.repaint();
+    }
+    
+    public void regiSucceed(){
+        this.getContentPane().removeAll();
+        this.registerSucceed = false;   
+        
+        //create succeed Panel
+        JPanel regiSucPanel = new JPanel();
+        JLabel regiSucLabel = new JLabel("New student register is successful!");
+        regiSucPanel.setLayout(null);
+        regiSucLabel.setForeground(Color.white);
+        regiSucLabel.setFont(new Font("Dialog", Font.BOLD, 13));
+        regiSucLabel.setBounds(280,200,300,30);
+        this.goMainButton.setFont(new Font("Dialog", Font.BOLD, 11));
+        this.goMainButton.setBackground(Color.LIGHT_GRAY);
+        this.goMainButton.setBounds(10,10,170,30);
+        
+        regiSucPanel.setBackground(Color.black);
+        regiSucPanel.add(regiSucLabel);
+        regiSucPanel.add(goMainButton);
+        this.add(regiSucPanel);
+        this.revalidate();
+        this.repaint();
+    }
+    
+    public void regiDefault(){
+              this.idField.setText("");
+              this.nameField.setText("");
+              this.genderField.setText("");
+              this.bdayField.setText("");
+              this.majorField.setText("");
+              this.idError = false;
+              this.existIdError = false;
+              this.nameError = false;
+              this.genderError = false;
+              this.bdayError = false;
+              this.majorError = false;
     }
     
     public void addActionListener(ActionListener listener){
@@ -239,11 +278,12 @@ public class View extends JFrame implements Observer{
            } 
         }else{
             if(goMainFlag){
-              this.idInput.setText("");
+              this.regiDefault();
+              this.searchError = false;
               this.goBackMain();
             }
             if(goRegiPage){
-               this.registerInfo(); 
+               this.registerInfo();
             }
             if(idError){
                this.idField.setText("");
@@ -330,15 +370,19 @@ public class View extends JFrame implements Observer{
                 this.repaint();
             }
             if(registerSucceed){
-                this.regiSucLabel.setForeground(Color.blue);
-                this.regiSucLabel.setBounds(600,300,150,30);
-                this.regiSucLabel.setVisible(true);
-                this.regiPanel.add(regiSucLabel);
+               this.regiSucceed();
+            }
+            if(searchError){
+                this.idInput.setText("");
+                this.idNotFound.setForeground(Color.red);
+                this.idNotFound.setBounds(260, 285, 300, 30);
+                this.idNotFound.setVisible(true);
+                this.idPanel.add(idNotFound);
                 this.revalidate();
                 this.repaint();
             }
-            if(!registerSucceed){
-                this.regiSucLabel.setVisible(false);
+            if(!searchError){
+                this.idNotFound.setVisible(false);
                 this.revalidate();
                 this.repaint();
             }
