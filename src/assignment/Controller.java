@@ -21,6 +21,46 @@ public class Controller implements ActionListener{
         this.view.addActionListener(this);
     }
     
+    public boolean isNumeric(String id){
+        try{
+            Integer.parseInt(id);
+            return true;
+        }catch(NumberFormatException e){
+            return false;
+        }
+    }
+    
+    public boolean isCharacter(String name){
+        for(int i=0; i<name.length(); i++){
+            char c = name.charAt(i);
+            if(!(c == ' ') || (((c<= 'A' && c >= 'Z')&&(c<='a' && c>='z')))){
+                return false;
+            }      
+        }
+        return true;
+    }
+
+    public boolean checkBday(String bday){
+        if(bday.length() != 8)
+            return false;
+        else{
+            //check if it is in the right form with /
+            if(bday.charAt(2) == '/' && bday.charAt(5) == '/'){
+               for(int i=0; i<8; i++){
+                   if(i != 2 && i != 5){
+                       char c = bday.charAt(i);
+                        if(!(c >='0') && (c <= '9'))
+                           return false;
+                        return true;
+                   }      
+               }              
+            }   
+            else
+                return false;
+        }
+        return false;
+    }
+    
     @Override
     public void actionPerformed(ActionEvent e){
         String command = e.getActionCommand();
@@ -40,6 +80,27 @@ public class Controller implements ActionListener{
             case "Back to Main":
                 //back to main page button
                 this.model.backToMain();
+                break;
+            case "Create student information":
+                //create student button on registerIdPage
+                if(this.view.idField.getText().length() != 7 || !isNumeric(this.view.idField.getText()))
+                    view.idError = true;
+                if(!isCharacter(this.view.nameField.getText()))
+                    view.nameError = true;
+                if(!this.view.genderField.getText().equalsIgnoreCase("F")||!this.view.genderField.getText().equalsIgnoreCase("M"))
+                    view.genderError = true;
+                if(!checkBday(this.view.bdayField.getText()))
+                    view.bdayError = true;
+                if(!this.view.majorField.getText().equals("BSC")||
+                        !this.view.majorField.getText().equals("BSIS")||
+                        !this.view.majorField.getText().equals("BEN")||
+                        !this.view.majorField.getText().equals("MSC")||
+                        !this.view.majorField.getText().equals("MEN")||
+                        !this.view.majorField.getText().equals("DSC"))
+                    view.majorError = true;
+        
+                    
+                      
                 break;
             default:
                 break;
