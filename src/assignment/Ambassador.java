@@ -11,6 +11,7 @@ package assignment;
  */
 public class Ambassador {
     int id = 0;
+    String name = "";
     String ava1 = "";
     String ava2 = "";
     
