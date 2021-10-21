@@ -14,7 +14,7 @@ import java.util.Random;
  */
 public class Model extends Observable{
     public Student student;
-    public static StudentList stList;
+    public StudentList stList;
     public Database db;
     public int id;
     public View view;
@@ -77,9 +77,7 @@ public class Model extends Observable{
     
     public void showListStudent(){
         stList = this.db.getStudentList();
-        if(stList != null)
-            this.view.listStudent = true;
         this.setChanged();
-        this.notifyObservers();
+        this.notifyObservers(stList);
     }
 }
