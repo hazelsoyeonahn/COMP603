@@ -23,7 +23,7 @@ public class Model extends Observable{
         this.db = new Database();
         this.db.setupStudentDB();
         this.db.initAmbassadorBooking(); //initiate ambassador once program starts
-        this.db.initMentorBooking(); //initiate mentor once program starts
+        this.db.initPaperBooking(); //initiate mentor once program starts
     }
     
     public void checkID(int id){
@@ -91,5 +91,30 @@ public class Model extends Observable{
     }        
         this.setChanged();
         this.notifyObservers();
+    }
+    
+    public void bookMentor(String booking){
+        boolean isBooked = this.db.bookMentor(booking);
+        //paper cannot be null as suggested mentor teaches paper
+        //check if student is enrolled for the paper
+        
+        if(isBooked)
+            this.view.mentBooked = true;
+        else
+            this.view.mentBooked = true;
+        this.setChanged();
+        this.notifyObservers(); 
+    }
+    
+    public void availableMentor(String selection){
+        Mentor foundMentor = this.db.initMentorBooking(selection);
+        if(foundMentor == null){
+              this.view.noMentorError = true;
+        }
+        else{
+            this.view.noMentorError = false;
+        }
+        this.setChanged();
+        this.notifyObservers(foundMentor);
     }
 }
