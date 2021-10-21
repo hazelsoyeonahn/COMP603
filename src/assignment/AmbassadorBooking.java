@@ -19,4 +19,8 @@ public class AmbassadorBooking {
             ambBookings[i] = availableList.get(i);
         return ambBookings;
     }
-}
+    
+    public ArrayList<String> getArrayList(){
+        return availableList;
+    }
+  }
