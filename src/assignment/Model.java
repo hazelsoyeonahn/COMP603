@@ -22,12 +22,15 @@ public class Model extends Observable{
     public Model(){
         this.db = new Database();
         this.db.setupStudentDB();
+        this.db.initAmbassadorBooking(); //initiate ambassador once program starts
+        this.db.initMentorBooking(); //initiate mentor once program starts
     }
     
     public void checkID(int id){
         this.id = id;
         this.student = this.db.checkID(id);
         
+        //if id is found, get available ambassador, mentor bookings
         if(student != null && student.idFlag){
             this.setChanged();
             this.notifyObservers(this.student);
