@@ -110,24 +110,28 @@ public class Database {
     }
     
     public boolean bookAmbassador(String selection){
-        String newBooking = selection;
+   
          try{
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery("SELECT BOOKINGS, AVAILABILITY FROM AMBBOOKING");
             
             while(rs.next()){
                 int ava = rs.getInt("AVAILABILITY");
-                if(ava != 1)
-                    return false;
-                if(ava == 1){
-                    try{
-                        statement.execute("UPDATE AMBBOOKING SET AVAILABILITY = 0 WHERE BOOKINGS = "+newBooking);
-                        return true;
-                    }catch(SQLException ex){
-                        System.out.println("No matching booking");
+                String ass = rs.getString("BOOKINGS");
+                if(ass.equals(selection)){
+                        if(ava != 1)
                         return false;
+                         if(ava == 1){
+                        try{
+                            statement.execute("UPDATE AMBBOOKING SET AVAILABILITY = 0 WHERE BOOKINGS = '"+selection+"'");
+                            return true;
+                        }catch(SQLException ex){
+                            System.out.println("No matching booking");
+                            return false;
+                        }
                     }
                 }
+                
             }
          }catch(SQLException ex){
               Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
