@@ -5,8 +5,9 @@
  */
 package assignment;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
+import java.awt.*;
+import java.awt.event.*;
 /**
  *
  * @author fvx3255
@@ -95,8 +96,17 @@ public class Controller implements ActionListener{
                 break;
             case "Book Ambassador":
                 //book ambassador button
-                String select =(String) this.view.ambBox.getItemAt(this.view.ambBox.getSelectedIndex());
-                this.model.bookAmbassador(select);
+                String select1 =(String) this.view.ambBox.getItemAt(this.view.ambBox.getSelectedIndex());
+                this.model.bookAmbassador(select1);
+                break;
+            case "Book Mentor":
+                //book mentor button
+                String select2 =(String) this.view.menBox.getItemAt(this.view.menBox.getSelectedIndex());
+                this.model.bookMentor(select2);
+                break;
+            case "Find mentor session":
+                String papSelection =(String) this.view.papBox.getItemAt(this.view.papBox.getSelectedIndex());
+                this.model.availableMentor(papSelection);
                 break;
             case "Create student information":
                 //create student button on registerIdPage
