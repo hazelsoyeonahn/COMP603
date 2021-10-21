@@ -223,4 +223,20 @@ public class Database {
          }
          return false;
     }
+    
+    public void generatePaperList(){
+        Paper paper = new Paper();
+        
+        try{
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT PAPERCODE FROM PAPERCODE");
+            
+            while(rs.next()){
+                String paperCode = rs.getString("PAPERCODE");
+                paper.paperList.add(paperCode); //add all available papers
+            }
+        }catch(SQLException ex){
+              Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+         }
+    }
 }
