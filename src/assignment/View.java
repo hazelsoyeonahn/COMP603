@@ -14,6 +14,7 @@ import javax.swing.JTextField;
 import javax.swing.JFrame;
 import java.util.Observer;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemListener;
 import java.util.Observable;
 import java.util.ArrayList;
 import java.awt.*;
@@ -40,7 +41,6 @@ public class View extends JFrame implements Observer{
     public static boolean goMainFlag = false;
     public static boolean goRegiPage = false;
     public static boolean searchError = false;
-    public static boolean ambBooked = false;
     
     //info panel
     public JPanel infoPanel = new JPanel(){
@@ -58,10 +58,19 @@ public class View extends JFrame implements Observer{
         };
     private JButton bookAmButton = new JButton("Book Ambassador");
     private JButton bookMeButton = new JButton("Book Mentor");
+    private JButton findSessionButton = new JButton("Find mentor session");
     AmbassadorBooking ambBookings = new AmbassadorBooking();
     public JComboBox ambBox = new JComboBox(ambBookings.getArray());
     MentorBooking menBookings = new MentorBooking();
-    public JComboBox menBox = new JComboBox(menBookings.getArray());
+    public JComboBox papBox = new JComboBox(menBookings.getPaperArray());
+    public JComboBox menBox = new JComboBox();
+    public JLabel foundMentorLabel = null;
+    public JLabel mentorBookedLabel = new JLabel("Mentor is Booked!");
+    public JLabel noMentorLabel = new JLabel("No mentor is available");
+    public static boolean ambBooked = false;
+    public static boolean noMentorError = false;
+    public static boolean mentBooked = false;
+   
     
     //for registering panel
     private JPanel regiPanel = new JPanel();
@@ -133,6 +142,7 @@ public class View extends JFrame implements Observer{
         JLabel stGenderLabel = new JLabel("Gender: "+stu.gender);
         JLabel stMajorLabel = new JLabel("Major: "+stu.major);
         JLabel infoLabel = new JLabel("Information");
+        JLabel paperLabel = new JLabel("Paper Enrolment");
         
         stIdLabel.setForeground(Color.white);
         stNameLabel.setForeground(Color.white);
@@ -140,6 +150,7 @@ public class View extends JFrame implements Observer{
         stGenderLabel.setForeground(Color.white);
         stMajorLabel.setForeground(Color.white);
         infoLabel.setForeground(Color.LIGHT_GRAY);
+        paperLabel.setForeground(Color.LIGHT_GRAY);
         
         stIdLabel.setFont(new Font("Dialog", Font.PLAIN, 15));
         stNameLabel.setFont(new Font("Dialog", Font.PLAIN, 15));
@@ -147,6 +158,7 @@ public class View extends JFrame implements Observer{
         stGenderLabel.setFont(new Font("Dialog", Font.PLAIN, 15));
         stMajorLabel.setFont(new Font("Dialog", Font.PLAIN, 15));
         infoLabel.setFont(new Font("Dialog", Font.BOLD, 13));
+        paperLabel.setFont(new Font("Dialog", Font.BOLD, 13));
         
         stIdLabel.setBounds(60,100,100,30);
         stNameLabel.setBounds(60,130,200,30);
@@ -154,6 +166,7 @@ public class View extends JFrame implements Observer{
         stGenderLabel.setBounds(60,190,100,30);
         stMajorLabel.setBounds(60,220,100,30);
         infoLabel.setBounds(120,60,100,30);
+        paperLabel.setBounds(340,310,160,30);
         
         this.goMainButton.setFont(new Font("Dialog", Font.BOLD, 11));
         this.goMainButton.setBackground(Color.LIGHT_GRAY);
@@ -166,9 +179,13 @@ public class View extends JFrame implements Observer{
         ambBox.setBounds(300,100,300,30);
         
         //mentor info
-        this.bookMeButton.setFont(new Font("Dialog", Font.BOLD, 11));
-        this.bookMeButton.setBackground(Color.LIGHT_GRAY);
-        this.bookMeButton.setBounds(600,200,160,30);
+        this.findSessionButton.setFont(new Font("Dialog", Font.BOLD, 11));
+        this.findSessionButton.setBackground(Color.LIGHT_GRAY);
+        this.findSessionButton.setBounds(450,200,160,30);
+        papBox.setBounds(300,200,100,30);
+        
+        //paper enrol info
+        
         
         this.getContentPane().removeAll();
         infoPanel.setLayout(null);
@@ -180,10 +197,12 @@ public class View extends JFrame implements Observer{
         infoPanel.add(stGenderLabel);
         infoPanel.add(stMajorLabel);
         infoPanel.add(infoLabel);
+        infoPanel.add(paperLabel);
         infoPanel.add(goMainButton);
         infoPanel.add(bookAmButton);
-        infoPanel.add(bookMeButton);
+        infoPanel.add(findSessionButton);
         infoPanel.add(ambBox);
+        infoPanel.add(papBox);
         infoPanel.setVisible(true);
         this.add(infoPanel);
         this.revalidate();
@@ -340,6 +359,7 @@ public class View extends JFrame implements Observer{
               this.bdayError = false;
               this.majorError = false;
               this.ambBooked = false;
+              this.mentBooked = false;
     }
     
     public void addActionListener(ActionListener listener){
@@ -350,8 +370,9 @@ public class View extends JFrame implements Observer{
         this.createStuButton.addActionListener(listener);
         this.bookAmButton.addActionListener(listener);
         this.bookMeButton.addActionListener(listener);
+        this.findSessionButton.addActionListener(listener);
     }
-    
+
     @Override
     public void update(Observable o, Object arg){ 
         //validate which argument
@@ -365,6 +386,11 @@ public class View extends JFrame implements Observer{
            stList = (StudentList) arg;//get StudentList object 
         }catch(ClassCastException ex){
         }
+        Mentor mentor = null;
+        try{
+            mentor = (Mentor) arg;
+        }catch(ClassCastException ex){
+        }
         //if argument student
         if(student != null){
             if(student.idFlag){ //if login succeed, start info
@@ -375,6 +401,32 @@ public class View extends JFrame implements Observer{
         //if argument studentList
         else if(stList != null){
            this.startList(stList);
+        }
+        else if(mentor != null){
+            mentor.getDay();
+            menBox.removeAllItems();
+             
+            int date1 = mentor.firstDate(mentor.day1);
+            int date2 = mentor.firstDate(mentor.day2);
+             
+            //4 weeks of session is available to book
+            for(int i=0; i<4; ++i){
+                String session1 = mentor.name+" "+date1+"/"+"10 "+mentor.ava1;
+                String session2 = mentor.name+" "+date2+"/"+"10 "+mentor.ava2;
+                date1 += 7;
+                date2 += 7;
+                menBox.addItem(session1);
+                menBox.addItem(session2);
+            }
+            menBox.setBounds(300,250,280,30);
+            this.bookMeButton.setVisible(true);
+            this.bookMeButton.setFont(new Font("Dialog", Font.BOLD, 11));
+            this.bookMeButton.setBackground(Color.LIGHT_GRAY);
+            this.bookMeButton.setBounds(600,250,160,30);
+            infoPanel.add(menBox);
+            infoPanel.add(bookMeButton);
+            this.revalidate();
+            this.repaint();
         }
         //if argument other
         else{
@@ -505,6 +557,36 @@ public class View extends JFrame implements Observer{
                 this.revalidate();
                 this.repaint();
             }
+            if(noMentorError){
+                this.noMentorLabel.setVisible(true);
+                this.noMentorLabel.setBounds(300,140,200,30);
+                this.noMentorLabel.setForeground(Color.red);
+                this.infoPanel.add(noMentorLabel);
+                this.revalidate();
+                this.repaint();
+            }
+            if(!noMentorError){
+                this.noMentorLabel.setVisible(false);
+                this.revalidate();
+                this.repaint();
+            } 
+            if(mentBooked){
+                this.mentorBookedLabel.setForeground(Color.red);
+                this.mentorBookedLabel.setBounds(400,290,200,30);
+                this.mentorBookedLabel.setVisible(true);
+                this.infoPanel.add(mentorBookedLabel); 
+                this.menBox.removeItem(this.menBox.getItemAt(this.menBox.getSelectedIndex()));
+                this.revalidate();
+                this.repaint(); 
+            }
+            if(!mentBooked){
+                this.mentorBookedLabel.setVisible(false);
+                this.menBox.setVisible(false);
+                this.revalidate();
+                this.repaint();
+            }
+            //all flag back and textfield is back to default;
+            this.regiDefault();
         }
     }
 }
