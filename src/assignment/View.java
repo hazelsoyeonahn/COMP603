@@ -17,13 +17,14 @@ import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.ArrayList;
 import java.awt.*;
+import javax.swing.JComboBox;
 
 /**
  *
  * @author fvx3255
  */
 public class View extends JFrame implements Observer{
-    //for info panel
+    //for id panel
     private JPanel idPanel = new JPanel();
     private JLabel idLabel = new JLabel("Student ID: ");
     private JLabel welcomeLabel = new JLabel("Welcome ! Input student ID to see the information");
@@ -31,15 +32,34 @@ public class View extends JFrame implements Observer{
     private JLabel autLabel = new JLabel("AUT");
     public JTextField idInput = new JTextField(7); //for searching
     private JLabel idNotFound = new JLabel("Student not found, please type correct student ID");
+    private JLabel ambBookedLabel = new JLabel("Ambassador is booked!");
     private JButton idSearchButton = new JButton("Search");
     private JButton regiButton = new JButton("Register new student");
     private JButton listButton = new JButton("Show list of student");
     private JButton goMainButton = new JButton("Back to Main");
-    private JButton bookAmButton = new JButton("Book Ambassador");
-    private JButton bookMeButton = new JButton("Book Mentor");
     public static boolean goMainFlag = false;
     public static boolean goRegiPage = false;
     public static boolean searchError = false;
+    public static boolean ambBooked = false;
+    
+    //info panel
+    public JPanel infoPanel = new JPanel(){
+            protected void paintComponent(Graphics g){         
+                super.paintComponent(g);
+                Graphics2D g2 = (Graphics2D)g;
+                g2.setColor(Color.LIGHT_GRAY);
+                g2.setStroke(new BasicStroke(2));
+                g2.drawLine(30, 75, 30, 260);
+                g2.drawLine(30, 75, 110, 75);
+                g2.drawLine(200, 75, 270, 75);
+                g2.drawLine(270,75,270,260);
+                g2.drawLine(30,260,270,260);
+            }
+        };
+    private JButton bookAmButton = new JButton("Book Ambassador");
+    private JButton bookMeButton = new JButton("Book Mentor");
+    AmbassadorBooking ambBookings = new AmbassadorBooking();
+    public JComboBox ambBox = new JComboBox(ambBookings.getArray());
     
     //for registering panel
     private JPanel regiPanel = new JPanel();
@@ -104,20 +124,7 @@ public class View extends JFrame implements Observer{
     }
     
     public void startInfo(Student stu){
-        //design new panel and labels
-        JPanel infoPanel = new JPanel(){
-            protected void paintComponent(Graphics g){         
-                super.paintComponent(g);
-                Graphics2D g2 = (Graphics2D)g;
-                g2.setColor(Color.LIGHT_GRAY);
-                g2.setStroke(new BasicStroke(2));
-                g2.drawLine(60, 75, 60, 260);
-                g2.drawLine(60, 75, 140, 75);
-                g2.drawLine(230, 75, 300, 75);
-                g2.drawLine(300,75,300,260);
-                g2.drawLine(60,260,300,260);
-            }
-        };
+        //design new labels
         JLabel stIdLabel = new JLabel("ID: "+String.valueOf(stu.id));
         JLabel stNameLabel = new JLabel("Name: "+stu.name);
         JLabel stBirthLabel = new JLabel("Birthday: "+stu.birthday);
@@ -139,21 +146,23 @@ public class View extends JFrame implements Observer{
         stMajorLabel.setFont(new Font("Dialog", Font.PLAIN, 15));
         infoLabel.setFont(new Font("Dialog", Font.BOLD, 13));
         
-        stIdLabel.setBounds(90,100,100,30);
-        stNameLabel.setBounds(90,130,200,30);
-        stBirthLabel.setBounds(90,160,200,30);
-        stGenderLabel.setBounds(90,190,100,30);
-        stMajorLabel.setBounds(90,220,100,30);
-        infoLabel.setBounds(150,60,100,30);
+        stIdLabel.setBounds(60,100,100,30);
+        stNameLabel.setBounds(60,130,200,30);
+        stBirthLabel.setBounds(60,160,200,30);
+        stGenderLabel.setBounds(60,190,100,30);
+        stMajorLabel.setBounds(60,220,100,30);
+        infoLabel.setBounds(120,60,100,30);
         
         this.goMainButton.setFont(new Font("Dialog", Font.BOLD, 11));
         this.goMainButton.setBackground(Color.LIGHT_GRAY);
         this.goMainButton.setBounds(10,10,170,30);
         
         //ambassador info
+        this.ambBox = new JComboBox(ambBookings.getArray());
         this.bookAmButton.setFont(new Font("Dialog", Font.BOLD, 11));
         this.bookAmButton.setBackground(Color.LIGHT_GRAY);
         this.bookAmButton.setBounds(600,100,160,30);
+        ambBox.setBounds(300,100,300,30);
         
         //mentor info
         this.bookMeButton.setFont(new Font("Dialog", Font.BOLD, 11));
@@ -173,6 +182,7 @@ public class View extends JFrame implements Observer{
         infoPanel.add(goMainButton);
         infoPanel.add(bookAmButton);
         infoPanel.add(bookMeButton);
+        infoPanel.add(ambBox);
         infoPanel.setVisible(true);
         this.add(infoPanel);
         this.revalidate();
@@ -316,6 +326,7 @@ public class View extends JFrame implements Observer{
     }
     
     public void regiDefault(){
+              this.idInput.setText("");
               this.idField.setText("");
               this.nameField.setText("");
               this.genderField.setText("");
@@ -327,6 +338,10 @@ public class View extends JFrame implements Observer{
               this.genderError = false;
               this.bdayError = false;
               this.majorError = false;
+              this.ambBooked = false;
+              this.ambBox = new JComboBox(ambBookings.getArray());
+              this.revalidate();
+              this.repaint();
     }
     
     public void addActionListener(ActionListener listener){
@@ -474,7 +489,27 @@ public class View extends JFrame implements Observer{
                 this.revalidate();
                 this.repaint();
             }
-            
+            if(ambBooked){
+                this.ambBookedLabel.setForeground(Color.red);
+                this.ambBookedLabel.setBounds(350,150,200,30);
+                this.ambBookedLabel.setVisible(true);
+                this.infoPanel.add(ambBookedLabel);
+                String select =(String) this.ambBox.getItemAt(this.ambBox.getSelectedIndex());
+                ambBookings.availableList.remove(select);
+                 String[] bookingList = new String[ambBookings.availableList.size()];
+                 for(int i=0; i<ambBookings.availableList.size(); i++)
+                bookingList[i] = ambBookings.availableList.get(i);
+                this.ambBox = new JComboBox(bookingList);
+                this.revalidate();
+                this.repaint();
+                
+            }
+            if(!ambBooked){
+                this.ambBookedLabel.setVisible(false);
+                this.ambBox = new JComboBox(ambBookings.getArray());
+                this.revalidate();
+                this.repaint();
+            }
         }
     }
 }
