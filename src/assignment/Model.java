@@ -83,4 +83,13 @@ public class Model extends Observable{
         this.setChanged();
         this.notifyObservers(stList);
     }
+    
+    public void bookAmbassador(String booking){
+        boolean ambFlag = this.db.bookAmbassador(booking);
+        if(ambFlag){
+        this.view.ambBooked = true;
+    }        
+        this.setChanged();
+        this.notifyObservers();
+    }
 }
