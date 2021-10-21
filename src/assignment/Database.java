@@ -17,7 +17,7 @@ import java.sql.DatabaseMetaData;
  * @author fvx3255
  */
 public class Database {
-    String url = "jdbc:derby://localhost:1527/StudentInformation;create=true"; //url for StudentDB
+    String url = "jdbc:derby://localhost:1527/StudentDB;create=true"; //url for StudentDB
     String username = "pdc";
     String password = "pdc";
     Connection conn = null;
