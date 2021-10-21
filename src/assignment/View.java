@@ -158,7 +158,6 @@ public class View extends JFrame implements Observer{
         this.goMainButton.setBounds(10,10,170,30);
         
         //ambassador info
-        this.ambBox = new JComboBox(ambBookings.getArray());
         this.bookAmButton.setFont(new Font("Dialog", Font.BOLD, 11));
         this.bookAmButton.setBackground(Color.LIGHT_GRAY);
         this.bookAmButton.setBounds(600,100,160,30);
@@ -339,9 +338,6 @@ public class View extends JFrame implements Observer{
               this.bdayError = false;
               this.majorError = false;
               this.ambBooked = false;
-              this.ambBox = new JComboBox(ambBookings.getArray());
-              this.revalidate();
-              this.repaint();
     }
     
     public void addActionListener(ActionListener listener){
@@ -491,15 +487,12 @@ public class View extends JFrame implements Observer{
             }
             if(ambBooked){
                 this.ambBookedLabel.setForeground(Color.red);
-                this.ambBookedLabel.setBounds(350,150,200,30);
+                this.ambBookedLabel.setBounds(400,140,200,30);
                 this.ambBookedLabel.setVisible(true);
                 this.infoPanel.add(ambBookedLabel);
                 String select =(String) this.ambBox.getItemAt(this.ambBox.getSelectedIndex());
                 ambBookings.availableList.remove(select);
-                 String[] bookingList = new String[ambBookings.availableList.size()];
-                 for(int i=0; i<ambBookings.availableList.size(); i++)
-                bookingList[i] = ambBookings.availableList.get(i);
-                this.ambBox = new JComboBox(bookingList);
+                this.ambBox.removeItem(this.ambBox.getItemAt(this.ambBox.getSelectedIndex()));
                 this.revalidate();
                 this.repaint();
                 
