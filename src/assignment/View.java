@@ -5,6 +5,7 @@
  */
 package assignment;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JButton;
@@ -16,6 +17,8 @@ import java.util.Observer;
 import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.ArrayList;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
 /**
  *
  * @author fvx3255
@@ -204,24 +207,24 @@ public class View extends JFrame implements Observer{
         this.revalidate();
         this.repaint();
     }
-    public void startList(){
-        StudentList stList = new StudentList();
-        ArrayList<Student> list = stList.studentList;
+    public void startList(StudentList stList){
+        StudentList students = stList;
+        ArrayList<Student> list = students.returnList();
         this.getContentPane().removeAll();
         
         //list Panel
         JPanel listPanel = new JPanel();
         listPanel.setLayout(null);
         listPanel.setBackground(Color.black);
+       
         this.goMainButton.setFont(new Font("Dialog", Font.BOLD, 11));
         this.goMainButton.setBackground(Color.LIGHT_GRAY);
         this.goMainButton.setBounds(10,10,170,30);
         listPanel.add(goMainButton);
-        
         //make array of students label
         JLabel[] student = new JLabel[list.size()];
-        int i1=30;
-        
+        int i1=60; int ii = 30;
+        System.out.println(list.size());
         for(int i=0; i<list.size(); i++){
             String info = "";
             info+=list.get(i).id;
@@ -229,15 +232,19 @@ public class View extends JFrame implements Observer{
             info+=list.get(i).name;
             student[i] = new JLabel(info);
             student[i].setForeground(Color.white);
-            student[i].setBounds(30, i1, 200, 30);
+            student[i].setBounds(ii, i1, 200, 30);
             listPanel.add(student[i]);
-            i1+= 20;
+            i1+= 15;
+            if(i!=0 && i % 30 == 0){
+             //tried to add scroll pane but failed, so increase x axis
+                ii+=120;
+                i1 = 60;
+            }     
         }
-        
-        
-        
-        
+      
+        this.setVisible(true);
         this.add(listPanel);
+       // this.add(listPanel);
         this.revalidate();
         this.repaint();
     }
@@ -297,7 +304,8 @@ public class View extends JFrame implements Observer{
     }
     
     @Override
-    public void update(Observable o, Object arg){   
+    public void update(Observable o, Object arg){ 
+        //validate which argument
         Student student = null;
         try{
             student = (Student) arg;//get Student object
@@ -308,15 +316,18 @@ public class View extends JFrame implements Observer{
            stList = (StudentList) arg;//get StudentList object 
         }catch(ClassCastException ex){
         }
+        //if argument student
         if(student != null){
             if(student.idFlag){ //if login succeed, start info
                this.startInfo(student);
            }
        
         }
-        if(stList != null){
-            
+        //if argument studentList
+        else if(stList != null){
+           this.startList(stList);
         }
+        //if argument other
         else{
             if(goMainFlag){
               this.regiDefault();
