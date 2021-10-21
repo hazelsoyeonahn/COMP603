@@ -93,6 +93,11 @@ public class Controller implements ActionListener{
                 //back to main page button
                 this.model.backToMain();
                 break;
+            case "Book Ambassador":
+                //book ambassador button
+                String select =(String) this.view.ambBox.getItemAt(this.view.ambBox.getSelectedIndex());
+                this.model.bookAmbassador(select);
+                break;
             case "Create student information":
                 //create student button on registerIdPage
                 Student newStudent = new Student();
