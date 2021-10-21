@@ -11,7 +11,6 @@ import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.sql.DriverManager;
 import java.sql.Connection;
-import java.sql.DatabaseMetaData;
 /**
  *
  * @author fvx3255
@@ -57,6 +56,8 @@ public class Database {
         }
         return student;
     }
+    
+  
  
     public void registerStudent(Student student){
         Student newStudent = student;
@@ -94,16 +95,15 @@ public class Database {
         AmbassadorBooking amBooking = new AmbassadorBooking();
         try{
             Statement statement = conn.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT ID, AVAILABILITY1, AVAILABILITY2 FROM AMBASSADOR");
+            ResultSet rs = statement.executeQuery("SELECT BOOKINGS, AVAILABILITY FROM AMBBOOKING");
             
             while(rs.next()){
-                Ambassador tempAmb = new Ambassador();
-                tempAmb.id = rs.getInt("ID");
-                tempAmb.ava1 = rs.getString("AVAILABILITY1");
-                tempAmb.ava2 = rs.getString("AVAILABILITY2");
-                amBooking.ambList.add(tempAmb); //add all ambassador
+               int availability = 0;
+               if(rs.getInt("AVAILABILITY") == 1){
+                   amBooking.availableList.add(rs.getString("BOOKINGS"));
+               }
             }
-            amBooking.generateAvaList();
+            
         }catch(SQLException ex){
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
         }
