@@ -32,6 +32,7 @@ public class Model extends Observable{
         
         //if id is found, get available ambassador, mentor bookings
         if(student != null && student.idFlag){
+            this.db.generatePaperList();
             this.setChanged();
             this.notifyObservers(this.student);
         }
@@ -39,8 +40,7 @@ public class Model extends Observable{
             this.view.searchError = true;
             this.setChanged();
             this.notifyObservers();
-        }
-            
+        }        
     }
     
     public boolean checkExistingID(int id){
