@@ -100,7 +100,7 @@ public class Database {
             while(rs.next()){
                int availability = 0;
                if(rs.getInt("AVAILABILITY") == 1){
-                   amBooking.availableList.add(rs.getString("BOOKINGS"));
+                   amBooking.availableAmList.add(rs.getString("BOOKINGS"));
                }
             }
             
@@ -140,11 +140,20 @@ public class Database {
     }
     
     public void initMentorBooking(){
+            MentorBooking meBooking = new MentorBooking();
         try{
             Statement statement = conn.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT ID, AVAILABILITY1, AVAILABILITY2, PAPER FROM MENTOR");
-        }catch(SQLException ex){
+            ResultSet rs = statement.executeQuery("SELECT BOOKINGS, AVAILABILITY FROM MENBOOKING");
             
+            while(rs.next()){
+               int availability = 0;
+               if(rs.getInt("AVAILABILITY") == 1){
+                   meBooking.availableMeList.add(rs.getString("BOOKINGS"));
+               }
+            }
+            
+        }catch(SQLException ex){
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }
