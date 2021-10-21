@@ -16,6 +16,7 @@ public class Student {
     public String gender;
     public String birthday;
     public String major;
+    public String paper;
     
     public Student(){
         this.idFlag = false;
@@ -24,5 +25,6 @@ public class Student {
         this.gender = "";
         this.birthday = "";
         this.major = "";
+        this.paper = "";
     }
 }
