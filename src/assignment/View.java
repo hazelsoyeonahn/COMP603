@@ -5,7 +5,6 @@
  */
 package assignment;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JButton;
@@ -17,14 +16,14 @@ import java.util.Observer;
 import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.ArrayList;
-import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneConstants;
+import java.awt.*;
+
 /**
  *
  * @author fvx3255
  */
 public class View extends JFrame implements Observer{
-    //for main panel
+    //for info panel
     private JPanel idPanel = new JPanel();
     private JLabel idLabel = new JLabel("Student ID: ");
     private JLabel welcomeLabel = new JLabel("Welcome ! Input student ID to see the information");
@@ -36,6 +35,8 @@ public class View extends JFrame implements Observer{
     private JButton regiButton = new JButton("Register new student");
     private JButton listButton = new JButton("Show list of student");
     private JButton goMainButton = new JButton("Back to Main");
+    private JButton bookAmButton = new JButton("Book Ambassador");
+    private JButton bookMeButton = new JButton("Book Mentor");
     public static boolean goMainFlag = false;
     public static boolean goRegiPage = false;
     public static boolean searchError = false;
@@ -104,41 +105,74 @@ public class View extends JFrame implements Observer{
     
     public void startInfo(Student stu){
         //design new panel and labels
-        JPanel infoPanel = new JPanel();
-        JLabel stId = new JLabel("ID: "+String.valueOf(stu.id));
-        JLabel stName = new JLabel("Name: "+stu.name);
-        JLabel stBirth = new JLabel("Birthday: "+stu.birthday);
-        JLabel stGender = new JLabel("Gender: "+stu.gender);
-        JLabel stMajor = new JLabel("Major: "+stu.major);
+        JPanel infoPanel = new JPanel(){
+            protected void paintComponent(Graphics g){         
+                super.paintComponent(g);
+                Graphics2D g2 = (Graphics2D)g;
+                g2.setColor(Color.LIGHT_GRAY);
+                g2.setStroke(new BasicStroke(2));
+                g2.drawLine(60, 75, 60, 260);
+                g2.drawLine(60, 75, 140, 75);
+                g2.drawLine(230, 75, 300, 75);
+                g2.drawLine(300,75,300,260);
+                g2.drawLine(60,260,300,260);
+            }
+        };
+        JLabel stIdLabel = new JLabel("ID: "+String.valueOf(stu.id));
+        JLabel stNameLabel = new JLabel("Name: "+stu.name);
+        JLabel stBirthLabel = new JLabel("Birthday: "+stu.birthday);
+        JLabel stGenderLabel = new JLabel("Gender: "+stu.gender);
+        JLabel stMajorLabel = new JLabel("Major: "+stu.major);
+        JLabel infoLabel = new JLabel("Information");
         
-        stId.setForeground(Color.white);
-        stName.setForeground(Color.white);
-        stBirth.setForeground(Color.white);
-        stGender.setForeground(Color.white);
-        stMajor.setForeground(Color.white);
-        stId.setFont(new Font("Dialog", Font.PLAIN, 15));
-        stName.setFont(new Font("Dialog", Font.PLAIN, 15));
-        stBirth.setFont(new Font("Dialog", Font.PLAIN, 15));
-        stGender.setFont(new Font("Dialog", Font.PLAIN, 15));
-        stMajor.setFont(new Font("Dialog", Font.PLAIN, 15));
-        stId.setBounds(30,50,100,30);
-        stName.setBounds(30,80,200,30);
-        stBirth.setBounds(30,140,200,30);
-        stGender.setBounds(30,110,100,30);
-        stMajor.setBounds(30,170,100,30);
+        stIdLabel.setForeground(Color.white);
+        stNameLabel.setForeground(Color.white);
+        stBirthLabel.setForeground(Color.white);
+        stGenderLabel.setForeground(Color.white);
+        stMajorLabel.setForeground(Color.white);
+        infoLabel.setForeground(Color.LIGHT_GRAY);
+        
+        stIdLabel.setFont(new Font("Dialog", Font.PLAIN, 15));
+        stNameLabel.setFont(new Font("Dialog", Font.PLAIN, 15));
+        stBirthLabel.setFont(new Font("Dialog", Font.PLAIN, 15));
+        stGenderLabel.setFont(new Font("Dialog", Font.PLAIN, 15));
+        stMajorLabel.setFont(new Font("Dialog", Font.PLAIN, 15));
+        infoLabel.setFont(new Font("Dialog", Font.BOLD, 13));
+        
+        stIdLabel.setBounds(90,100,100,30);
+        stNameLabel.setBounds(90,130,200,30);
+        stBirthLabel.setBounds(90,160,200,30);
+        stGenderLabel.setBounds(90,190,100,30);
+        stMajorLabel.setBounds(90,220,100,30);
+        infoLabel.setBounds(150,60,100,30);
+        
         this.goMainButton.setFont(new Font("Dialog", Font.BOLD, 11));
         this.goMainButton.setBackground(Color.LIGHT_GRAY);
         this.goMainButton.setBounds(10,10,170,30);
         
+        //ambassador info
+        this.bookAmButton.setFont(new Font("Dialog", Font.BOLD, 11));
+        this.bookAmButton.setBackground(Color.LIGHT_GRAY);
+        this.bookAmButton.setBounds(600,100,160,30);
+        
+        //mentor info
+        this.bookMeButton.setFont(new Font("Dialog", Font.BOLD, 11));
+        this.bookMeButton.setBackground(Color.LIGHT_GRAY);
+        this.bookMeButton.setBounds(600,200,160,30);
+        
         this.getContentPane().removeAll();
         infoPanel.setLayout(null);
         infoPanel.setBackground(Color.black);
-        infoPanel.add(stId);
-        infoPanel.add(stName);
-        infoPanel.add(stBirth);
-        infoPanel.add(stGender);
-        infoPanel.add(stMajor);
+      
+        infoPanel.add(stIdLabel);
+        infoPanel.add(stNameLabel);
+        infoPanel.add(stBirthLabel);
+        infoPanel.add(stGenderLabel);
+        infoPanel.add(stMajorLabel);
+        infoPanel.add(infoLabel);
         infoPanel.add(goMainButton);
+        infoPanel.add(bookAmButton);
+        infoPanel.add(bookMeButton);
         infoPanel.setVisible(true);
         this.add(infoPanel);
         this.revalidate();
@@ -301,6 +335,8 @@ public class View extends JFrame implements Observer{
         this.listButton.addActionListener(listener);
         this.goMainButton.addActionListener(listener);
         this.createStuButton.addActionListener(listener);
+        this.bookAmButton.addActionListener(listener);
+        this.bookMeButton.addActionListener(listener);
     }
     
     @Override
