@@ -60,6 +60,8 @@ public class View extends JFrame implements Observer{
     private JButton bookMeButton = new JButton("Book Mentor");
     AmbassadorBooking ambBookings = new AmbassadorBooking();
     public JComboBox ambBox = new JComboBox(ambBookings.getArray());
+    MentorBooking menBookings = new MentorBooking();
+    public JComboBox menBox = new JComboBox(menBookings.getArray());
     
     //for registering panel
     private JPanel regiPanel = new JPanel();
@@ -491,7 +493,7 @@ public class View extends JFrame implements Observer{
                 this.ambBookedLabel.setVisible(true);
                 this.infoPanel.add(ambBookedLabel);
                 String select =(String) this.ambBox.getItemAt(this.ambBox.getSelectedIndex());
-                ambBookings.availableList.remove(select);
+                ambBookings.availableAmList.remove(select);
                 this.ambBox.removeItem(this.ambBox.getItemAt(this.ambBox.getSelectedIndex()));
                 this.revalidate();
                 this.repaint();
