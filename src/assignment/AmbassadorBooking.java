@@ -11,16 +11,16 @@ import java.util.ArrayList;
  * @author fvx3255
  */
 public class AmbassadorBooking {
-    public static ArrayList<String> availableList= new ArrayList<String>();; //booking is available for 4 month
+    public static ArrayList<String> availableAmList= new ArrayList<String>();; //booking is available for 1 month
     
     public String[] getArray(){
-         String[] ambBookings = new String[availableList.size()];
-        for(int i=0; i<availableList.size(); i++)
-            ambBookings[i] = availableList.get(i);
+         String[] ambBookings = new String[availableAmList.size()];
+        for(int i=0; i<availableAmList.size(); i++)
+            ambBookings[i] = availableAmList.get(i);
         return ambBookings;
     }
     
     public ArrayList<String> getArrayList(){
-        return availableList;
+        return availableAmList;
     }
   }
