@@ -83,11 +83,38 @@ public class Database {
                tempStudent.name = rs.getString("NAME");
                stList.addStudent(tempStudent);
            }
-           System.out.println(stList.returnList().toString());
            return stList;
         }catch(SQLException ex){
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+    
+    public void initAmbassadorBooking(){
+        AmbassadorBooking amBooking = new AmbassadorBooking();
+        try{
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT ID, AVAILABILITY1, AVAILABILITY2 FROM AMBASSADOR");
+            
+            while(rs.next()){
+                Ambassador tempAmb = new Ambassador();
+                tempAmb.id = rs.getInt("ID");
+                tempAmb.ava1 = rs.getString("AVAILABILITY1");
+                tempAmb.ava2 = rs.getString("AVAILABILITY2");
+                amBooking.ambList.add(tempAmb); //add all ambassador
+            }
+            amBooking.generateAvaList();
+        }catch(SQLException ex){
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void initMentorBooking(){
+        try{
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT ID, AVAILABILITY1, AVAILABILITY2, PAPER FROM MENTOR");
+        }catch(SQLException ex){
+            
+        }
     }
 }
