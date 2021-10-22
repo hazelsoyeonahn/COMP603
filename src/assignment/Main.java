@@ -1,12 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package assignment;
 
 /**
- *
+ * This is a main class of Student Information Application.
+ * Controller class controls Model Observable and View Observer
  * @author fvx3255
  */
 public class Main {
