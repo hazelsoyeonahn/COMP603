@@ -1,27 +1,25 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package assignment;
-
 
 import java.awt.*;
 import java.awt.event.*;
 /**
- *
+ * This Controller class of MVC Design Pattern.
+ * This class implements ActionListener, listens coming action
+ * This class contains few method to validate coming action
  * @author fvx3255
  */
 public class Controller implements ActionListener{
     public Model model;
     public View view;
     
+    //constructor
     public Controller(View view, Model model){
         this.model = model;
         this.view = view;
         this.view.addActionListener(this);
     }
     
+    //check if string contains all numeric
     public boolean isNumeric(String id){
         if(id.length() == 0)
             return false;
@@ -67,6 +65,7 @@ public class Controller implements ActionListener{
         return false;
     }
     
+    //this method override actionPerformed method which listens actions
     @Override
     public void actionPerformed(ActionEvent e){
         String command = e.getActionCommand();
@@ -98,16 +97,16 @@ public class Controller implements ActionListener{
                 break;
             case "Book Ambassador":
                 //book ambassador button
-                String select1 =(String) this.view.ambBox.getItemAt(this.view.ambBox.getSelectedIndex());
+                String select1 =(String) this.view.ambBox.getItemAt(this.view.ambBox.getSelectedIndex()); //get item in the comboBox
                 this.model.bookAmbassador(select1);
                 break;
             case "Book Mentor":
                 //book mentor button
-                String select2 =(String) this.view.menBox.getItemAt(this.view.menBox.getSelectedIndex());
+                String select2 =(String) this.view.menBox.getItemAt(this.view.menBox.getSelectedIndex());//get item in the comboBox
                 this.model.bookMentor(select2);
                 break;
             case "Find mentor session":
-                String papSelection =(String) this.view.papBox.getItemAt(this.view.papBox.getSelectedIndex());
+                String papSelection =(String) this.view.papBox.getItemAt(this.view.papBox.getSelectedIndex());//get item in the comboBox
                 this.model.availableMentor(papSelection);
                 break;
             case "Create student information":
