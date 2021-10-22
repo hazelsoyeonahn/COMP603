@@ -105,7 +105,6 @@ public class Model extends Observable{
         boolean isBooked = this.db.bookMentor(booking);
         //paper cannot be null as suggested mentor teaches paper
         //check if student is enrolled for the paper
-        
         if(isBooked)
             this.view.mentBooked = true;
         else
