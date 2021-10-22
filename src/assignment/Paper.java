@@ -1,17 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package assignment;
 import java.util.ArrayList;
 /**
- *
+ * This class is a paper class which have static list of paper.
+ * It contains few methods to validate paper list.
+ * The list only contains unenrolled papers.
  * @author fvx3255
  */
 public class Paper {
     static ArrayList<String> paperList = new ArrayList<String>(); //paparList is alreayd generated with all valid papers
     
+    //returns String representation of enrolled list. 
     public String getEnrolPaper(){
         String enrol = "";
         if(paperList.size() == 5) //if in the list, student is enrolled
@@ -32,6 +30,8 @@ public class Paper {
             return enrol;
         }
     }
+    
+    //returns String representation of unenrolled list from received Student parameter
     public String getUnenrolPaper(Student stu){
         String unenrol = "";
         Student student = stu;
