@@ -1,17 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package assignment;
 
 /**
- * Booking is available for a month prior time
+ * This is an Ambassador class extends Person class.
+ * Represents ambassador with availability variables.
  * @author fvx3255
  */
 public class Ambassador extends Person{
-    String ava1 = "";
-    String ava2 = "";
+    String ava1 = ""; //availability 1;
+    String ava2 = ""; //availability 2;
     
     public Ambassador(){
         super.id = 0;
