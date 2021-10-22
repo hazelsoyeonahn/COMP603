@@ -1,12 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package assignment;
 
 /**
- *
+ * This class is a Student class extends Person class.
+ * It contains information for student.
  * @author fvx3255
  */
 public class Student extends Person{
@@ -16,6 +12,7 @@ public class Student extends Person{
     public String major;
     public String paper;
     
+    //constructor
     public Student(){
         this.idFlag = false;
         super.id = 0;
