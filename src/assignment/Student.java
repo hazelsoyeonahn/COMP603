@@ -9,10 +9,8 @@ package assignment;
  *
  * @author fvx3255
  */
-public class Student {
+public class Student extends Person{
     public boolean idFlag;
-    public int id;
-    public String name;
     public String gender;
     public String birthday;
     public String major;
@@ -20,8 +18,8 @@ public class Student {
     
     public Student(){
         this.idFlag = false;
-        this.id = 0;
-        this.name = "";
+        super.id = 0;
+        super.name = "";
         this.gender = "";
         this.birthday = "";
         this.major = "";
