@@ -9,10 +9,12 @@ package assignment;
  * Booking is available for a month prior time
  * @author fvx3255
  */
-public class Ambassador {
-    int id = 0;
-    String name = "";
+public class Ambassador extends Person{
     String ava1 = "";
     String ava2 = "";
     
+    public Ambassador(){
+        super.id = 0;
+        super.name = "";
+    }
 }
