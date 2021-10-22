@@ -9,14 +9,17 @@ package assignment;
  *
  * @author fvx3255
  */
-public class Mentor {
-    int id = 0;
-    String name = "";
+public class Mentor extends Person{
     String ava1 = "";
     String ava2 = "";
     String paper = "";
     String day1 = "";
     String day2 = "";
+    
+    public Mentor(){
+        super.id = 0;
+        super.name = "";
+    }
     
     public void getDay(){
         for(int i=0; i<ava1.length(); i++){
