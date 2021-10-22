@@ -1,12 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package assignment;
 
 /**
- *
+ * This is a Mentor class represents Mentor extends Person class
+ * This mentor class few method to validate mentor information and variables.
  * @author fvx3255
  */
 public class Mentor extends Person{
@@ -16,11 +12,13 @@ public class Mentor extends Person{
     String day1 = "";
     String day2 = "";
     
+    //constructor
     public Mentor(){
         super.id = 0;
         super.name = "";
     }
     
+    //validate what day they are working
     public void getDay(){
         for(int i=0; i<ava1.length(); i++){
             if(ava1.charAt(i)==',')
@@ -37,6 +35,7 @@ public class Mentor extends Person{
         }
     }
     
+    //returns int represntation of date(based on October 2021)
     public int firstDate(String day){
         if(day.equals("Monday"))
             return 4;
