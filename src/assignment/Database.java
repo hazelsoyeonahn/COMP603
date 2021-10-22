@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package assignment;
 import java.sql.Statement;
 import java.util.logging.Logger;
@@ -160,6 +155,7 @@ public class Database {
         }
     }
 
+    //this method initialise mentor booking, save mentor's information and returns mentor
     public Mentor initMentorBooking(String papercode){
         Mentor mentor = new Mentor();
             try{
@@ -179,6 +175,7 @@ public class Database {
                 Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             }
             
+            //find name of mentor
             try{
                 Statement statement = conn.createStatement();
                 ResultSet rs = statement.executeQuery("SELECT NAME, ID FROM STUDENT WHERE ID = "+mentor.id);
@@ -196,8 +193,7 @@ public class Database {
             return mentor;
     }
             
-            
-            
+    //this method book mentor with selected section coming from String parameter
      public Boolean bookMentor(String selection){
          MentorBooking mb = new MentorBooking();
         try{
