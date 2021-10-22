@@ -12,7 +12,8 @@ import java.sql.ResultSet;
 import java.sql.DriverManager;
 import java.sql.Connection;
 /**
- *
+ * This class is a Database class that is controls database connection with StudentDB.
+ * This class includes few methods that help retrieve information from database.
  * @author fvx3255
  */
 public class Database {
@@ -21,6 +22,7 @@ public class Database {
     String password = "pdc";
     Connection conn = null;
     
+    //set up StudentDB database
     public void setupStudentDB(){
         try{
             conn = DriverManager.getConnection(url,username,password);
@@ -31,13 +33,14 @@ public class Database {
         }
     }
     
+    //this method checks id parameter with existing database and returns Student object
     public Student checkID(int id){
         Student student = new Student();
         try{
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery("SELECT NAME, ID, GENDER, BIRTHDAY, MAJOR, PAPER FROM STUDENT "
             + "WHERE ID = " +id+"");
-            //if id is found
+            //if id is found, save student's information and return
             if(rs.next()){
                 student.idFlag = true;
                 student.id = rs.getInt("ID");
@@ -57,9 +60,8 @@ public class Database {
         }
         return student;
     }
-    
-  
  
+    //register new student in Database
     public void registerStudent(Student student){
         Student newStudent = student;
         try{
@@ -73,6 +75,7 @@ public class Database {
         }
     }
     
+    //This method add all students in Database to arrayList in StudentList, then returns its reference.
     public StudentList getStudentList(){
         StudentList stList = new StudentList();
         try{
@@ -81,7 +84,7 @@ public class Database {
            
            while(rs.next()){
                Student tempStudent = new Student();
-               tempStudent.id = rs.getInt("ID");
+               tempStudent.id = rs.getInt("ID"); //only ID and NAME is displayed 
                tempStudent.name = rs.getString("NAME");
                stList.addStudent(tempStudent);
            }
@@ -92,6 +95,7 @@ public class Database {
         return null;
     }
     
+    //this method initialise ambassador's booking session
     public void initAmbassadorBooking(){
         AmbassadorBooking amBooking = new AmbassadorBooking();
         try{
@@ -100,7 +104,7 @@ public class Database {
             
             while(rs.next()){
                int availability = 0;
-               if(rs.getInt("AVAILABILITY") == 1){
+               if(rs.getInt("AVAILABILITY") == 1){ //if 1 it can book, then initialise to AmbassadorBooking object
                    amBooking.availableAmList.add(rs.getString("BOOKINGS"));
                }
             }
@@ -110,6 +114,7 @@ public class Database {
         }
     }
     
+    //this method books ambassador from ambbooking table
     public boolean bookAmbassador(String selection){
          try{
             Statement statement = conn.createStatement();
@@ -122,7 +127,7 @@ public class Database {
                         if(ava != 1)
                         return false;
                          if(ava == 1){
-                        try{
+                        try{//book if availability == 1, and set it back to 0
                             statement.execute("UPDATE AMBBOOKING SET AVAILABILITY = 0 WHERE BOOKINGS = '"+selection+"'");
                             return true;
                         }catch(SQLException ex){
@@ -138,6 +143,7 @@ public class Database {
          return false;
     }
     
+    //this method initilise paper bookings
     public void initPaperBooking(){
             MentorBooking meBooking = new MentorBooking();
             
@@ -224,9 +230,13 @@ public class Database {
          return false;
     }
     
+     //add all available papers to paperList; for student information
     public void generatePaperList(){
         Paper paper = new Paper();
-        
+        int listSize = paper.paperList.size();
+        for(int i=0; i<listSize; i++){ //make sure paperList is empty
+            paper.paperList.remove(paper.paperList.get(0));
+        }
         try{
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery("SELECT PAPERCODE FROM PAPERCODE");
