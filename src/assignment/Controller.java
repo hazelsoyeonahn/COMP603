@@ -33,6 +33,7 @@ public class Controller implements ActionListener{
         }
     }
     
+    //check if parameter name is character, returns boolean
     public boolean isCharacter(String name){
         boolean isAllSpace = false;
         for(int i=0; i<name.length(); i++){
@@ -44,6 +45,7 @@ public class Controller implements ActionListener{
         return true;
     }
 
+    //check if parameter bday is in a right form
     public boolean checkBday(String bday){
         if(bday.length() != 8)
             return false;
@@ -69,25 +71,25 @@ public class Controller implements ActionListener{
     public void actionPerformed(ActionEvent e){
         String command = e.getActionCommand();
         switch(command){
+            //idPanel buttons
             case "Search":
                 //id search button
                 int id =0;
                 try{
                     id = Integer.parseInt(this.view.idInput.getText()); //get searchable id
-                    this.view.searchError = false;
+                    this.view.idSearchError = false;
                     this.model.checkID(id);
                 }catch(NumberFormatException ex){
-                    this.view.searchError = true;
-                    this.model.errorDetected();
-                    
+                    this.view.idSearchError = true;
+                    this.model.regiErrorDetected();        
                 }
                 break;
             case "Register new student":
-                //register new student button
+                //register new student button which takes to regiPanel
                 this.model.registerIdPage();
                 break;
             case "Show list of student":
-                //show list of student button
+                //show list of student button which takes to listPanel
                 this.model.showListStudent();
                 break;
             case "Back to Main":
@@ -109,39 +111,42 @@ public class Controller implements ActionListener{
                 this.model.availableMentor(papSelection);
                 break;
             case "Create student information":
-                //create student button on registerIdPage
+                //create student button on regiPanel
                 Student newStudent = new Student();
-                boolean isError = false;
+                boolean isError = false; //check if there is any error occured
                 int newId = 0;
+                //check id
                 try{
-                   newId = Integer.parseInt(this.view.idField.getText());
+                   newId = Integer.parseInt(this.view.idField.getText()); //check if id is all digits
                 }catch(NumberFormatException ex){
                    view.idError = true;
                    isError = true;
                   }   
-                if(this.view.idField.getText().length() != 7){
+                if(this.view.idField.getText().length() != 7){ //if id length is not 7, give error
                     view.idError = true;
                      isError = true;          
                 }
-                else if(this.model.checkExistingID(newId)){
+                else if(this.model.checkExistingID(newId)){ //if id already exist, give error
                     view.existIdError = true;
                     isError = true;
                 }
                 else{
                     view.idError = false; 
                     view.existIdError = false;
-                    newStudent.id = newId;
-                }      
-                if(!isCharacter(this.view.nameField.getText())|| this.view.nameField.getText().length() == 0){
+                    newStudent.id = newId; //initialise id if no error
+                }
+                //check name
+                if(!isCharacter(this.view.nameField.getText())|| this.view.nameField.getText().length() == 0){ //check if name is character or null
                     view.nameError = true;
                     isError = true;
                 }
                 else{
                      view.nameError = false;
-                     newStudent.name = this.view.nameField.getText();
-                }       
+                     newStudent.name = this.view.nameField.getText(); //initialise name if no error
+                }     
+                //check gender
                 if(!this.view.genderField.getText().equalsIgnoreCase("F")&&!this.view.genderField.getText().equalsIgnoreCase("M")){
-                    view.genderError = true;
+                    view.genderError = true; //if gender not in a right form, give error
                     isError = true;
                 }
                 else{
@@ -149,14 +154,14 @@ public class Controller implements ActionListener{
                      newStudent.gender = this.view.genderField.getText();
                 }             
                 if(!checkBday(this.view.bdayField.getText())){
-                    view.bdayError = true;
+                    view.bdayError = true; //if bday not in a right form, give error
                     isError = true;
                 }
                 else{
                      view.bdayError = false;
                      newStudent.birthday = this.view.bdayField.getText();
                 }               
-                if(!this.view.majorField.getText().equalsIgnoreCase("BSC")&&
+                if(!this.view.majorField.getText().equalsIgnoreCase("BSC")&& //if major is not chosed in these 6 majors, give error
                         !this.view.majorField.getText().equalsIgnoreCase("BCIS")&&
                         !this.view.majorField.getText().equalsIgnoreCase("BEN")&&
                         !this.view.majorField.getText().equalsIgnoreCase("MSC")&&
@@ -170,9 +175,9 @@ public class Controller implements ActionListener{
                      newStudent.major = this.view.majorField.getText();
                 }        
                 if(!isError)
-                    this.model.createStudent(newStudent); 
+                    this.model.createStudent(newStudent);  //if there is no single error, create student
                 else
-                    this.model.errorDetected(); //if there is any error, don't register and give warning
+                    this.model.regiErrorDetected(); //if there is any error, don't register and give warning
                 break;
             default:
                 break;
